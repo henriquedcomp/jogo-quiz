@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="quiz-area1">
+        <div class="caixa-perguntas">
+            <p id="pergunta1" class="pergunta"></p>
+        </div>
+        <div class="respostas">
+            <div class="botao">
+                <div class="botao-indice">
+                    <p>W</p>
+                </div>
+                <button id="opcao1" class="botao-quiz1" value="" onclick="verificarResposta(this)"></button>
+            </div>
+            <div class="botao">
+                <div class="botao-indice">
+                    <p>A</p>
+                </div>
+                <button id="opcao2" class="botao-quiz1" value="" onclick="verificarResposta(this)"></button>
+            </div>
+            <div class="botao">
+                <div class="botao-indice">
+                    <p>S</p>
+                </div>
+                <button id="opcao3" class="botao-quiz1" value="" onclick="verificarResposta(this)"></button>
+            </div>
+            <div class="botao">
+                <div class="botao-indice">
+                    <p>D</p>
+                </div>
+                <button id="opcao4" class="botao-quiz1" value="" onclick="verificarResposta(this)"></button>
+            </div>
+        </div>
+    </div>
+    <div id="conteudo-meio">
+        <div id="quadro">
+
+        </div>
+        <div id="caixa-boosts">
+            <p id="vs-text">VS</p>
+        </div>
+    </div>
+    <div id="quiz-area2">
+        <div class="caixa-perguntas">
+            <p id="pergunta2" class="pergunta"></p>
+        </div>
+        <div class="respostas">
+            <div class="botao">
+                <div class="botao-indice">
+                    <p>↑</p>
+                </div>
+                <button id="opcao1-quiz2" class="botao-quiz2" value="" onclick="verificarResposta(this)"></button>
+            </div>
+            <div class="botao">
+                <div class="botao-indice">
+                    <p>←</p>
+                </div>
+                <button id="opcao2-quiz2" class="botao-quiz2" value="" onclick="verificarResposta(this)"></button>
+            </div>
+            <div class="botao">
+                <div class="botao-indice">
+                    <p>↓</p>
+                </div>
+                <button id="opcao3-quiz2" class="botao-quiz2" value="" onclick="verificarResposta(this)"></button>
+            </div>
+            <div class="botao">
+                <div class="botao-indice">
+                    <p>→</p>
+                </div>
+                <button id="opcao4-quiz2" class="botao-quiz2" value="" onclick="verificarResposta(this)"></button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
