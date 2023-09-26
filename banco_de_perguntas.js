@@ -14,7 +14,15 @@ const perguntas = [
         opcao3: "Laranjeiras",
         opcao4: "Malhador",
         opcaocorreta: "Tobias Barreto"
-    }
+    },
+    {
+        pergunta: "Qual é a cor da caixa-preta do avião?",
+        opcao1: "Preta",
+        opcao2: "Amarela",
+        opcao3: "Laranja",
+        opcao4: "Azul",
+        opcaocorreta: "Laranja"
+    },
 ]
 
 export {perguntas}
