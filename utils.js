@@ -16,5 +16,30 @@ Array.prototype.verificarEmpate = function() {
     }
     return verificacao(this)
 }
+
+//função que atualiza a lista representativa da barra de vida dos jogadores. Quando um jogador recebe dano o valor no array passa de 1 a 0. Uma função será criada posteriormente para exibir um coração na tela a cada 1 que aparecer na lista.
+Array.prototype.causarDano = function () {
+    const dano = (lista, indice = lista.length - 1) => {
+        if(lista[indice] === 1) {
+            lista[indice] = 0
+            return 
+        }
+        return dano(lista, indice - 1)
+    }
+    dano(this)
+}
+
+//função que atualiza a lista representativa da barra de vida dos jogadores. Quando um jogador recupera vida o valor no array passa de 0 a 1. Se a barra de vida estiver cheia(não houver nenhum 0 na lista), a função não fará nada. Uma função será criada posteriormente para exibir um coração na tela a cada 1 que aparecer na lista.
+Array.prototype.recuperarVida = function () {
+    const regenerar = (lista, indice = 0) => {
+        if(indice === lista.length) return
+        else if(lista[indice] === 0) {
+            lista[indice] = 1
+            return 
+        }
+        return regenerar(lista, indice + 1)
+    }
+    regenerar(this)
+}
  
 export {rng}

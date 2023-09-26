@@ -26,6 +26,10 @@ document.addEventListener("keydown", configurarTeclas)
 //declaração de lista que irá receber um valor aleatório para ser usada de índice. Isso tem como objetivo selecionar, de forma aleatória, uma pergunta do nosso banco de questões para ser exibida na tela
 const randomIndice = [0]
 
+//listas representativas das barras de vida dos jogadores
+const vidaPlayer1 = [1, 1, 1, 1, 1]
+const vidaPlayer2 = [1, 1, 1, 1, 1]
+
 //função que recebe um indice e printa na tela a pergunta correspondente
 const definirPergunta = (indice) => {
     pergunta1.innerHTML = perguntas[indice].pergunta
@@ -56,8 +60,18 @@ const definirPergunta = (indice) => {
 window.verificarResposta = function (botao, respCorreta = perguntas[randomIndice[0]].opcaocorreta) {
     desativarBotoes()
 
-    if(botao.value !== respCorreta) botao.style.backgroundColor = "red"
-    else botao.style.backgroundColor = "green" 
+    const playerAtuante = botao.classList[0] === "botao-quiz1"? 1 : 2
+
+    if(botao.value !== respCorreta) {
+        botao.style.backgroundColor = "red"
+        if(playerAtuante === 1) vidaPlayer2.recuperarVida()
+        else vidaPlayer1.recuperarVida()
+    }
+    else {
+        botao.style.backgroundColor = "green" 
+        if(playerAtuante === 1) vidaPlayer2.causarDano()
+        else vidaPlayer1.causarDano()
+    }
 
     perguntas.removerElemento(randomIndice[0])
     setTimeout(carregarPergunta, 600)
