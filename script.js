@@ -1,7 +1,6 @@
 //imports de recursos de outros arquivos js
 import "./utils.js"
-import {rng} from "./utils.js"
-import {perguntas} from "./banco_de_perguntas.js"
+import {rng, addQuestao} from "./utils.js"
 
 //captura no js de elementos do HTML
 const pergunta1 = document.getElementById("pergunta1")
@@ -29,6 +28,23 @@ const randomIndice = [0]
 //listas representativas das barras de vida dos jogadores
 const vidaPlayer1 = [1, 1, 1, 1, 1]
 const vidaPlayer2 = [1, 1, 1, 1, 1]
+
+//lista com as perguntas
+const perguntas = [
+    addQuestao("Qual cidade Sergipana é considerada capital nacional do bordado?", "Simão Dias", "Tobias Barreto", "Laranjeiras", "Malhador", "Tobias Barreto"),
+    addQuestao("Qual é a cor da caixa-preta do avião?", "Preta", "Amarela", "Laranja", "Azul", "Laranja"),
+
+    //tire as execuções de função do console.log e adicione na lista
+
+    /*console.log(addQuestao("Qual o minimo de jogadores deve ter em cada time de futebol?", "12",  "6", "7", "5",  "7" ))
+    console.log(addQuestao("Qual o menor país do mundo?", "Rússia",  "Brasil", "Vaticano", "Estados Unidos",  "Vaticano" ))
+    console.log(addQuestao("Quantas casas decimais tem o número pi?", "Uma",  "Infinitas", "Vinte", "Três",  "Infinitas" ))
+    console.log(addQuestao("Qual a escola de magia e bruxaria em que estuda Harry Potter?", "Hogsmeade ",  "Caldeirão Furado", "Hogwarts", "Beco Diagonal",  "Hogwarts" ))
+    console.log(addQuestao("Qual o tipo sanguíneo considerado doador universal?", "Tipo O",  "Tipo AB", "Tipo B", "Tipo A",  "Tipo O" ))
+    console.log(addQuestao("Em que país nasceu Clarice Lispector?", "Brasil",  "Ucrânia", "Argentina", "Uruguai",  "Ucrânia" ))*/
+
+    //lembre de colocar uma vírgula após a função, apenas o último elemento não precisa. Adicione todas as perguntas que temos até então
+]
 
 //função que recebe um indice e printa na tela a pergunta correspondente
 const definirPergunta = (indice) => {
