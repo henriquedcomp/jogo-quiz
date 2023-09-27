@@ -43,11 +43,11 @@ const perguntas = [
     adcQuestao("Quais as respectivas cores da reciclagem do papel, vidro, metal e plástico?", "Verde, azul, amarelo, vermelho",  "Verde, amarelo, azul e vermelho", "Azul, verde, amarelo e vermelho", "Azul, amarelo, verde e vermelho",  "Azul, verde, amarelo e vermelho" ),
     adcQuestao("Qual país sediará as olimpíadas de 2024?", "Estados Unidos",  "França", "Austrália", "Brasil",  "França" ),
     adcQuestao("Qual é o nome artístico da cantora Larissa de Macedo Machado?", "Larissa Manoela",  "Xuxa", "Ludmilla", "Anitta",  "Anitta" ),
-    adcQuestao("Qual das alternativas as palavras estão escritas corretamente?", "reinvindicar, madastra, iogurte, lagartixa",  "reivindicar, madastra, iorgute largatixa", "reivindicar, madrasta, iogurte, lagartixa", "reinvindicar, madrasta, iorgute, largatixa",  "reivindicar, madrasta, iogurte, lagartixa" ),
+    adcQuestao("Qual das alternativas as palavras estão escritas corretamente?", "reinvindicar, madastra, iogurte",  "reivindicar, madastra, iorgute", "reivindicar, madrasta, iogurte", "reinvindicar, madrasta, iorgute",  "reivindicar, madrasta, iogurte" ),
     adcQuestao("Quantos elementos têm a tabela periódica?", "118",  "106", "128", "135",  "118" ),
     adcQuestao("Qual o nome da galáxia em que a Terra está?", "Galáxia de Andrômeda",  "Galáxia do Rodamoinho", "Via Láctea", "Galáxia do Sombreiro",  "Via Láctea" ),
     adcQuestao("Em que período da pré-história o fogo foi descoberto?", "Período da Pedra Polida",  "Paleolítico", "Mesolítico", "Idade Antiga",  "Paleolítico" ),
-    adcQuestao("Qual das alternativas abaixo apenas contêm classes de palavras?", "Oxítona, paroxítona, proparoxítona",  "Vogais, semivogais, consoantes", "Artigo, verbo, sintaxe", "Substantivo, verbo, preposição ",  "Substantivo, verbo, preposição " ),
+    adcQuestao("Qual das alternativas abaixo apenas contêm classes de palavras?", "Oxítona, paroxítona",  "Vogais, semivogais, consoantes", "Artigo, verbo, sintaxe", "Substantivo, verbo, preposição ",  "Substantivo, verbo, preposição " ),
     adcQuestao("Qual é o maior animal terrestre?", "Baleia azul",  "Elefante africano", "Urso polar", "Hipopotámo",  "Elefante africano" ),
     adcQuestao("Qual o nome da maior artéria do nosso corpo?", "Artéria pulmonar",  "Artérias renais", "Artéria aorta", "Artérias caronárias",  "Artéria aorta" ),
     adcQuestao("Qual o oceano que banha o Brasil?", "Pacífico",  "Atlântico", "Índico", "Ártico",  "Atlântico" ),
@@ -58,7 +58,7 @@ const perguntas = [
     adcQuestao("Qual o maior continente do planeta?", "Europa",  "Ásia", "América", "África",  "Ásia" ),
     adcQuestao("Qual o desenho que contem a fala “Você falou em pipoca?”", "Turma da Mônica",  "Scooby-Doo", "Pica-Pau", "Bob-Esponja",  "Pica-Pau" ),
     adcQuestao("Qual monumento famoso pela sua inclinação?", "Torre de pisa",  "Cristo redentor", "Torre Eiffel", "Estátua da Liberdade",  "Torre de pisa" ),
-    adcQuestao("", "",  "", "", "",  "" ),
+    //adcQuestao("", "",  "", "", "",  "" ),
 ]
 
 //aplicação da função removerElemento na lista de questões
@@ -101,9 +101,6 @@ window.verificarResposta = function (botao) {
 
     atualizarBarraDeVida(playerAtuante, statusAtual)
     
-    console.table(vidaJogador1)
-    console.table(vidaJogador2)
-
     removerQuestao(indiceAleatorio)
     setTimeout(carregarPergunta, 600)
 }
@@ -202,7 +199,13 @@ function reverterMarcacaoBotao() {
 }
 
 //função que verifica se o jogo acabou --> Atualmente o único modo do jogo acabar é se o banco de perguntas se esgotar mas em implementações futuras será adicionada uma nova condição
-const verificarFimDeJogo = () => verificarEmpate(perguntas)? "EMPATE" : false
+const verificarFimDeJogo = () => {
+    if(verificarEmpate(perguntas)) return "EMPATE"
+    else {
+        if(verificarVidaZerada(vidaJogador1)) return "JOGADOR 2 VENCEU!"
+        else if(verificarVidaZerada(vidaJogador2)) return "JOGADOR 1 VENCEU"
+    } return false
+}
 
 //função que, caso o jogo não tenha se encerrado, configura uma nova pergunta na tela e começa uma nova rodada. Caso o jogo tenha se encerrado, chama a função exibirTelaDeFimDeJogo
 function carregarPergunta() {

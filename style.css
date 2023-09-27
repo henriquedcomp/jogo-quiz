@@ -15,6 +15,7 @@ body {
 
 #quiz-area1 {
     height: 97.795vh;
+    max-height: 97.795vh;
     width: 350px;
     display: flex;
     flex-direction: column;
@@ -121,6 +122,7 @@ button:hover {
 
 #quiz-area2 {
     height: 97.795vh;
+    max-height: 97.795vh;
     width: 350px;
     display: flex;
     flex-direction: column;

@@ -13,8 +13,8 @@ const verificarEmpate = (lista) => {
 }
 
 //função que utiliza do conceito de currying para modificar a barra de vida dos jogadores. O parâmetro indice diz respeito ao valor que será usado para iterar nas casas da lista que representa a barra de vida dos jogadores. Modificador indica como o indice vai alterar seu valor a cada chamada recursiva (+1 ou -1 a depender se for usada para causar dano ou regenerar vida). Val1 e val 2 são parâmetros auxiliares para tomar uma decisão(na função de causar dano por exemplo, se a lista na posição indice for igual a 1(val1) esse valor será trocado por 0(val 2) o que indica que o player perdeu 1 de vida. Na função de regenerar vida ocorre o contrário). O parâmetro lista indica a lista que será analisada na função(vidaPlayer1 ou vidaPlayer2)
-const modificarBarraDeVida = (modificador, indice = 0) => (val1, val2) => (lista) => {
-    if(modificador === -1 && indice === 0) indice = lista.length - 1 //caso em que a função será usada para causarDano no momento em que o indice ainda não foi definido corretamente
+const modificarBarraDeVida = (modificador, indice) => (val1, val2) => (lista) => {
+    if(indice === null) indice = lista.length - 1 //caso em que a função será usada para causarDano no momento em que o indice ainda não foi definido corretamente
 
     if(indice === lista.length) return
     else if(lista[indice] === val1) {
@@ -25,10 +25,13 @@ const modificarBarraDeVida = (modificador, indice = 0) => (val1, val2) => (lista
 }
 
 //função que atualiza a lista representativa da barra de vida dos jogadores. Quando um jogador recebe dano o valor no array passa de 1 a 0. Uma função será criada posteriormente para exibir um coração na tela a cada 1 que aparecer na lista.
-const causarDano = modificarBarraDeVida(-1)(1, 0)
+const causarDano = modificarBarraDeVida(-1, null)(1, 0)
 
 //função que atualiza a lista representativa da barra de vida dos jogadores. Quando um jogador recupera vida o valor no array passa de 0 a 1. Se a barra de vida estiver cheia(não houver nenhum 0 na lista), a função não fará nada. Uma função será criada posteriormente para exibir um coração na tela a cada 1 que aparecer na lista.
-const recuperarVida = modificarBarraDeVida(1)(0, 1)
+const recuperarVida = modificarBarraDeVida(1, 0)(0, 1)
+
+//função que verifica se uma lista é composta apenas por zeros, o que configura a situação em que um jogador perdeu todas as suas vidas
+const verificarVidaZerada = (lista) => lista.reduce((acc, x) => acc + x) === 0? true : false
  
 //função para criar um objeto de pergunta com as opções de respostas e a resposta correta, será usada para adicionar as perguntas na lista
 const adcQuestao = (per, op1, op2, op3, op4, opc) => {
