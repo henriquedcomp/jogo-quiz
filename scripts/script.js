@@ -38,7 +38,7 @@ const perguntas = [
     adcQuestao("Quem é o cantor(a) da música “Triller”?", "Rihanna",  "Michael Jackson", "Pabllo Vittar", "Beyoncé",  "Michael Jackson" ),
     adcQuestao("A que temperatura a água ferve a 1 atm de pressão?", "0 °C",  "180 °C", "200 °C", "100 °C",  "100 °C" ),
     adcQuestao("Que cidade brasileira é conhecida por chover todos os dias quase à mesma hora?", "Vitória",  "Salvador", "Belém", "Porto Velho",  "Belém" ),
-    adcQuestao("Qual o nome popular do cloreto de sódio?", "Água",  "Sal de cozinha", "Vinagre", "Mel",  "Sal de Cozinha" ),
+    adcQuestao("Qual o nome popular do cloreto de sódio?", "Água",  "Sal de cozinha", "Vinagre", "Mel",  "Sal de cozinha" ),
     adcQuestao("Que fruto nasce da oliveira?", "Acerola",  "Açaí", "Azeitona", "Abacate",  "Azeitona" ),
     adcQuestao("Quais as respectivas cores da reciclagem do papel, vidro, metal e plástico?", "Verde, azul, amarelo, vermelho",  "Verde, amarelo, azul e vermelho", "Azul, verde, amarelo e vermelho", "Azul, amarelo, verde e vermelho",  "Azul, verde, amarelo e vermelho" ),
     adcQuestao("Qual país sediará as olimpíadas de 2024?", "Estados Unidos",  "França", "Austrália", "Brasil",  "França" ),
@@ -92,17 +92,18 @@ const definirPergunta = (indice) => {
 
 //função que é acionada quando um dos botões de resposta do HTML é acionado. Ela chama todas as funções necessárias para proseguir com o jogo. Desativar os botões, verificar se o jogador acertou ou não...
 window.verificarResposta = function (botao) {
-    const playerAtuante = botao.classList[0] === "botao-quiz1"? 1 : 2   //verifica qual jogador selecionou alguma resposta
+    const jogadorAtuante = botao.classList[0] === "botao-quiz1"? 1 : 2   //verifica qual jogador selecionou alguma resposta
 
     desativarBotoes(1)
     desativarBotoes(2)
 
     const statusAtual = conferirResposta(botao) //executa a função de correção de respostas e passa o status(de acerto ou erro) para a constante statusAtual
 
-    atualizarBarraDeVida(playerAtuante, statusAtual)
+    atualizarBarraDeVida(jogadorAtuante, statusAtual)
     
     removerQuestao(indiceAleatorio)
     setTimeout(carregarPergunta, 600)
+    setTimeout(() => punirErro(jogadorAtuante, statusAtual), 601)
 }
 
 //funcao que marca na tela como certa ou errada a alternativa selecionada pelo usuário
@@ -114,6 +115,15 @@ function conferirResposta(bto, respCorreta = perguntas[indiceAleatorio].opcaocor
     else {
         bto.style.backgroundColor = "green" 
         return 1
+    }
+}
+
+//função que, no caso do jogador ter errado, desativa os botões de resposta dele por 2.5s na próxima pergunta
+function punirErro(jogador, status) {
+    if(status === 0) {
+        desativarBotoes(jogador)
+        setTimeout(() => ativarBotoes(jogador), 2500)
+        setTimeout(() => reverterMarcacaoBotao(jogador), 2500)
     }
 }
 
@@ -186,16 +196,28 @@ function ativarBotoes(jogador) {
 }
 
 //função que remove a marcação de certo/errado adicionada quando o usuário seleciona uma alternativa
-function reverterMarcacaoBotao() {
-    opcao1.style.backgroundColor = "white"
-    opcao2.style.backgroundColor = "white"
-    opcao3.style.backgroundColor = "white"
-    opcao4.style.backgroundColor = "white"
+function reverterMarcacaoBotao(jogador) {
+    if(jogador === 1) {
+        opcao1.style.backgroundColor = "white"
+        opcao2.style.backgroundColor = "white"
+        opcao3.style.backgroundColor = "white"
+        opcao4.style.backgroundColor = "white"
+    } else if(jogador === "both") {
+        opcao1.style.backgroundColor = "white"
+        opcao2.style.backgroundColor = "white"
+        opcao3.style.backgroundColor = "white"
+        opcao4.style.backgroundColor = "white"
 
-    opcao1Quiz2.style.backgroundColor = "white"
-    opcao2Quiz2.style.backgroundColor = "white"
-    opcao3Quiz2.style.backgroundColor = "white"
-    opcao4Quiz2.style.backgroundColor = "white"
+        opcao1Quiz2.style.backgroundColor = "white"
+        opcao2Quiz2.style.backgroundColor = "white"
+        opcao3Quiz2.style.backgroundColor = "white"
+        opcao4Quiz2.style.backgroundColor = "white"
+    } else {
+        opcao1Quiz2.style.backgroundColor = "white"
+        opcao2Quiz2.style.backgroundColor = "white"
+        opcao3Quiz2.style.backgroundColor = "white"
+        opcao4Quiz2.style.backgroundColor = "white"
+    }
 }
 
 //função que verifica se o jogo acabou --> Atualmente o único modo do jogo acabar é se o banco de perguntas se esgotar mas em implementações futuras será adicionada uma nova condição
@@ -214,7 +236,7 @@ function carregarPergunta() {
         indiceAleatorio = rng(perguntas.length, 0)
 
         if(perguntas[indiceAleatorio] !== null) {
-            reverterMarcacaoBotao()
+            reverterMarcacaoBotao("both")
 
             definirPergunta(indiceAleatorio)
 
@@ -239,19 +261,15 @@ function exibirTelaDeFimDeJogo() {
 
 //função que configura as teclas que serão ouvidas pelo EventListener
 function configurarTeclas(event) {
-    switch(event.key) {
-        case "W" : 
-        case "w" : opcao1.click()
-        case "A" :
-        case "a" : opcao2.click()
-        case "S" :
-        case "s" : opcao3.click()
-        case "D" :
-        case "d" : opcao4.click()
-        case "ArrowUp" : opcao1Quiz2.click()
-        case "ArrowLeft" : opcao2Quiz2.click()
-        case "ArrowDown" : opcao3Quiz2.click()
-        case "ArrowRight" : opcao4Quiz2.click()
+    switch(event.key.toLowerCase()) {
+        case "w" : if(!opcao1.disabled) opcao1.click(); else break;
+        case "a" : if(!opcao2.disabled) opcao2.click(); else break;
+        case "s" : if(!opcao3.disabled) opcao3.click(); else break;
+        case "d" : if(!opcao4.disabled) opcao4.click(); else break;
+        case "arrowup" : opcao1Quiz2.click()
+        case "arrowleft" : opcao2Quiz2.click()
+        case "arrowdown" : opcao3Quiz2.click()
+        case "arrowright" : opcao4Quiz2.click()
     }
 }
 
