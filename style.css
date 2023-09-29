@@ -9,8 +9,8 @@
 body {
     display: flex;
     justify-content: space-between;
-    background-color: #EAAF9C;
-    background-image: radial-gradient(#D68E76, #F3BFAE)
+    background-color: black;
+    background-image: linear-gradient(90deg, #2C44BC 44%, #69BD24 55%)
 }
 
 #quiz-area1 {
@@ -104,11 +104,13 @@ button:hover {
 }
 
 #quadro {
-    height: 250px;
+    height: 150px;
     width: 100%;
     background-color: black;
     border-radius: 10px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
+    padding: 15px;
+    position: relative;
 }
 
 #caixa-boosts {
@@ -133,4 +135,35 @@ button:hover {
     border-left: 2px solid black;
     border-right: 2px solid black;
     background: linear-gradient(180deg, #549421, #7AE026)
+}
+
+#barras-de-vida {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: 600;
+    width: max-content;
+    max-width: 70%;
+    position: absolute;
+    bottom: 5%;
+}
+
+.coracoes-caixa, .barra-de-vida {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.coracoes-caixa {
+    height: 45px;
+    min-width: 45px;
+    max-width: 225px;
+}
+
+.coracao {
+    width: 100%;
+    min-width: 45px;
+    margin-right: -15px;
 }

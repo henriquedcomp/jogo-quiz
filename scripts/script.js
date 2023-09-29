@@ -1,3 +1,5 @@
+//<img class="coracao" src="imagens/coracao-azul.png" alt="Coração Azul">
+//<img class="coracao" src="imagens/coracao-verde.png" alt="Coração Verde">
 //captura no js de elementos do HTML
 const pergunta1 = document.getElementById("pergunta1")
 const opcao1 = document.getElementById("opcao1")
