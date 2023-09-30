@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
+
+@media (min-width: 1088px) and (max-width: 1300px) {
+    #opcao1, #opcao2, #opcao3, #opcao4, #opcao1-quiz2, #opcao2-quiz2, #opcao3-quiz2, #opcao4-quiz2 {
+        font-size: 14px;
+    }
+}
+
+:root {
+    --corEscuraJogador1: #2C44BC;
+    --corMediaJogador1: #3953D8;
+    --corClaraJogador1: #3D58E0;
+    --corEscuraJogador2: #549421;
+    --corMediaJogador2: #69BD24;
+    --corClaraJogador2: #7AE026;
+    --corDeFundo: #000000;
+    --corDeDestaque: #ffffff;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body, #quiz-area1, .respostas, .botao, #conteudo-meio, #quiz-area2, #barras-de-vida, .coracoes-caixa, .barra-de-vida {
+    display: flex;
+}
+
+.coracoes-caixa, .barra-de-vida, .botao, #conteudo-meio {
+    align-items: center;
+}
+
+.caixa-perguntas, button, button:hover {
+    background-color: var(--corDeDestaque);
+}
+
+.respostas, .botao, #quadro, .coracao {
+    width: 100%;
+}
+
+#quiz-area1, #quiz-area2 {
+    height: 97.795vh;
+    max-height: 97.795vh;
+    width: 350px;
+    flex-direction: column;
+    position: relative;
+    padding: 15px;
+    padding-bottom: 0;
+    border-left: 2px solid var(--corDeFundo);
+    border-right: 2px solid var(--corDeFundo);
+}
+
+body {
+    max-height: 100vh;
+    justify-content: space-between;
+    background-color: var(--corDeFundo);
+    background-image: linear-gradient(90deg, var(--corMediaJogador1) 44%, var(--corMediaJogador2) 55%)
+}
+
+#quiz-area1 {
+    margin-left: 3%;
+    background: linear-gradient(180deg, var(--corEscuraJogador1), var(--corClaraJogador1))
+}
+
+.caixa-perguntas {
+    width: 93%;
+    border: 2px solid var(--corDeFundo);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.pergunta {
+    text-align: center;
+    font-size: 20px;
+    color: var(--corDeFundo);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+}
+
+.respostas {
+    flex-direction: column;
+    position: absolute;
+    left: -.1%;
+    top: 59%;
+    font-size: 18px;
+}
+
+.botao-indice {
+    background-color: var(--corDeFundo);
+    color: var(--corDeDestaque);
+    height: 4.85vh;
+    width: 20px;
+    margin-left: 10px;
+    border: 2px solid var(--corDeFundo);
+    border-radius: 10px 0 0 10px;
+    padding-left: 13px;
+    padding-top: 10px;
+    font-family: monospace;
+}
+
+button {
+    height: 45px;
+    margin: 10px;
+    margin-left: 0;
+    padding: 8px 0;
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 18px;
+    border: 2px solid var(--corDeFundo);
+    border-radius: 0 10px 10px 0;
+    width: 90%;
+    pointer-events: none;
+}
+
+#conteudo-meio {
+    flex-direction: column;
+    width: 420px;
+    height: 97.795vh;
+    margin: 0 2%;
+    margin-top: 10px;
+}
+
+#quadro {
+    height: 130px;
+    background-color: var(--corDeFundo);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
+    padding: 15px;
+    position: relative;
+}
+
+#cronometro-caixa {
+    width: max-content;
+    height: max-content;
+    margin: 5px auto;
+}
+
+#cronometro {
+    color: var(--corDeDestaque);
+    font-family: monospace;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#barras-de-vida {
+    flex-direction: column;
+    color: var(--corDeDestaque);
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: 600;
+    width: max-content;
+    max-width: 70%;
+    position: absolute;
+    bottom: 5%;
+}
+
+.coracoes-caixa {
+    height: 45px;
+    min-width: 45px;
+    max-width: 225px;
+}
+
+.coracao {
+    min-width: 45px;
+    margin-right: -15px;
+}
+
+#caixa-vs {
+    margin-top: 3%;
+}
+
+#vs-texto {
+    font-size: 70px;
+    font-family: 'Caveat Brush', cursive;
+}
+
+#quiz-area2 {
+    margin-right: 3%;
+    background: linear-gradient(180deg, var(--corEscuraJogador2), var(--corClaraJogador2))
+}

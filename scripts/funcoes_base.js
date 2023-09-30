@@ -1,5 +1,5 @@
 //função que retorna um número aleatório entre 0 e alcance(o valor retornado é sempre menor que alcance). O Math.random retorna um número no intervalo semiaberto [0, 1), esse número é multiplicado por alcance, somado com minimo(caso deseje-se definir um valor mínimo de retorno diferente de 0) e então arredondado para baixo com o Math.floor
-const rng = (alcance, minimo) => Math.floor((Math.random() * alcance) + minimo)
+const gna = (alcance, minimo) => Math.floor((Math.random() * alcance) + minimo)
 
 //função que recebe um índice como parâmetro e define o valor do array na posição indice como null
 const removerElemento = (lista) => (indice) => lista[indice] = null
@@ -34,7 +34,7 @@ const recuperarVida = modificarBarraDeVida(1, 0)(0, 1)
 const verificarVidaZerada = (lista) => lista.reduce((acc, x) => acc + x) === 0? true : false
  
 //função para criar um objeto de pergunta com as opções de respostas e a resposta correta, será usada para adicionar as perguntas na lista
-const adcQuestao = (per, op1, op2, op3, op4, opc) => {
+const adcnQuestao = (per, op1, op2, op3, op4, opc) => {
     return {
         pergunta: per,
         opcao1: op1,
@@ -45,15 +45,13 @@ const adcQuestao = (per, op1, op2, op3, op4, opc) => {
     }
 }
 
-//função que identifica o valor de cada elemento de uma lista composta por zeros e uns.
-//essa função será usada para atualizar a barra de vida dos jogadores.
-const adicionarElemento = (elemento) => (lista, tagHTML) => (indice = 0) => {
-    if (indice === 0) tagHTML.innerHTML = ""
-    else if (indice === lista.length) return
+//função que identifica o valor de cada elemento de uma lista composta por zeros e uns. Essa função será usada para atualizar a barra de vida dos jogadores.
+const adicionarElemento = (elemento) => (lista, itemHTML, indice = 0) => {
+    if (indice === 0) itemHTML.innerHTML = ""
+    if (indice === lista.length) return
     else if (lista[indice] === 1) {
-      tagHTML.innerHTML += elemento
-      adicionarElemento(elemento)(lista, tagHTML)(indice + 1)
+      itemHTML.innerHTML += elemento
+      adicionarElemento(elemento)(lista, itemHTML, indice + 1)
     }
-    else return adicionarElemento(elemento)(lista, tagHTML)(indice + 1)
-  
-  }
+    else return adicionarElemento(elemento)(lista, itemHTML, indice + 1)
+}

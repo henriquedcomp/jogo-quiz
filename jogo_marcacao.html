@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="description" content="Quem é mais sábio é um jogo de Quiz competitivo onde os jogadores tem que responder perguntas ao mesmo tempo que se enfrentam num Ping Pong. Ganha aquele que conseguir eliminar as 5 vidas do adversário!">
+    <title>Quem é mais sábio?</title>
+    <link rel="stylesheet" type="text/css" href="jogo_estilo.css">
 </head>
 <body>
     <div id="quiz-area1">
@@ -40,7 +41,9 @@
     </div>
     <div id="conteudo-meio">
         <div id="quadro">
-            <div id="temporizador"></div>
+            <div id="cronometro-caixa">
+                <p id="cronometro"></p>
+            </div>
             <div id="barras-de-vida">
                 <div class="barra-de-vida">
                     <p>JOGADOR 1:</p>
@@ -64,8 +67,8 @@
                 </div>
             </div>
         </div>
-        <div id="caixa-boosts">
-            <p id="vs-text">VS</p>
+        <div id="caixa-vs">
+            <p id="vs-texto">VS</p>
         </div>
     </div>
     <div id="quiz-area2">
@@ -99,7 +102,7 @@
             </div>
         </div>
     </div>
-    <script src="scripts/utils.js"></script>
-    <script src="scripts/script.js"></script>
+    <script src="scripts/funcoes_base.js"></script>
+    <script type="module" src="scripts/jogo_controle.js"></script>
 </body>
 </html>
