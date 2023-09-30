@@ -1,5 +1,3 @@
-//<img class="coracao" src="imagens/coracao-azul.png" alt="Coração Azul">
-//<img class="coracao" src="imagens/coracao-verde.png" alt="Coração Verde">
 //captura no js de elementos do HTML
 const pergunta1 = document.getElementById("pergunta1")
 const opcao1 = document.getElementById("opcao1")
@@ -16,6 +14,9 @@ const opcao4Quiz2 = document.getElementById("opcao4-quiz2")
 const quizArea1 = document.getElementById("quiz-area1")
 const quizArea2 = document.getElementById("quiz-area2")
 const principal = document.querySelector("body")
+
+const barraDeVida1 = document.getElementById("caixa-coracoes-1")
+const barraDeVida2 = document.getElementById("caixa-coracoes-2")
 
 //adição do listener para ouvir o pressionar do teclado
 document.addEventListener("keydown", configurarTeclas)
@@ -102,6 +103,7 @@ window.verificarResposta = function (botao) {
     const statusAtual = conferirResposta(botao) //executa a função de correção de respostas e passa o status(de acerto ou erro) para a constante statusAtual
 
     atualizarBarraDeVida(jogadorAtuante, statusAtual)
+    atualizarBarrasDeVidaVisual()
     
     removerQuestao(indiceAleatorio)
     setTimeout(carregarPergunta, 600)
@@ -138,6 +140,12 @@ function atualizarBarraDeVida (jogador, status) {
         if(jogador === 1) causarDano(vidaJogador2)
         else causarDano(vidaJogador1)
     }
+}
+
+//função que atualiza os corações na tela
+function atualizarBarrasDeVidaVisual() {
+    adicionarElemento(`<img class="coracao" src="imagens/coracao-azul.png" alt="Coração Azul">`)(vidaJogador1,barraDeVida1)
+    adicionarElemento(`<img class="coracao" src="imagens/coracao-verde.png" alt="Coração Verde">`)(vidaJogador2,barraDeVida2)
 }
 
 //função que desativa os botões na tela com base no jogador que lhe é passado como parâmetro

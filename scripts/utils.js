@@ -44,3 +44,16 @@ const adcQuestao = (per, op1, op2, op3, op4, opc) => {
         opcaocorreta: opc
     }
 }
+
+//função que identifica o valor de cada elemento de uma lista composta por zeros e uns.
+//essa função será usada para atualizar a barra de vida dos jogadores.
+const adicionarElemento = (elemento) => (lista, tagHTML) => (indice = 0) => {
+    if (indice === 0) tagHTML.innerHTML = ""
+    else if (indice === lista.length) return
+    else if (lista[indice] === 1) {
+      tagHTML.innerHTML += elemento
+      adicionarElemento(elemento)(lista, tagHTML)(indice + 1)
+    }
+    else return adicionarElemento(elemento)(lista, tagHTML)(indice + 1)
+  
+  }
