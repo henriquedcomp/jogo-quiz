@@ -15,6 +15,7 @@ const opcao3Quiz2 = document.getElementById("opcao3-quiz2")
 const opcao4Quiz2 = document.getElementById("opcao4-quiz2")
 const barraDeVida2 = document.getElementById("caixa-coracoes-2")
 
+const cronometro = document.getElementById("cronometro")
 const quizArea1 = document.getElementById("quiz-area1")
 const quizArea2 = document.getElementById("quiz-area2")
 const principal = document.querySelector("body")
@@ -25,6 +26,9 @@ let indiceAleatorio
 //listas representativas das barras de vida dos jogadores
 const vidaJogador1 = [1, 1, 1, 1, 1]
 const vidaJogador2 = [1, 1, 1, 1, 1]
+
+//lista representativa dos caracteres do cronômetro
+const tempo = [0, 0, 0, 0]
 
 //função que é acionada quando um dos botões de resposta do HTML é acionado. Ela chama todas as funções necessárias para prosseguir com o jogo. Desativar os botões, verificar se o jogador acertou ou não...
 window.verificarResposta = function (botao) {
@@ -233,6 +237,21 @@ function exibirTelaDeFimDeJogo() {
     `
 }
 
+//função que vai atualizando o cronômetro na tela a cada 1s
+function configurarCronometro() {
+    cronometro.innerHTML = `${tempo[0]}${tempo[1]}:${tempo[2]}${tempo[3]}`
+    if(tempo[3]=== 9) {
+        if(tempo[2]=== 5) {
+            if(tempo[1]=== 9) {
+                tempo[0] += 1
+                tempo[1] = 0
+            } else tempo[1] += 1
+            tempo[2] = 0
+        } else tempo[2] += 1
+        tempo[3] = 0
+    } else tempo[3] += 1
+}
+
 //função que configura as teclas que serão ouvidas pelo EventListener
 function configurarTeclas(event) {
     switch(event.key.toLowerCase()) {
@@ -252,3 +271,5 @@ document.addEventListener("keydown", configurarTeclas)
 
 //começa o jogo
 carregarPergunta()
+configurarCronometro()
+setInterval(configurarCronometro, 1000)
