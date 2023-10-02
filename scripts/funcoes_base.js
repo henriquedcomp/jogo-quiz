@@ -55,3 +55,20 @@ const adicionarElemento = (elemento) => (lista, itemHTML, indice = 0) => {
     }
     else return adicionarElemento(elemento)(lista, itemHTML, indice + 1)
 }
+//função que altera os elementos de uma lista para zeros e uns de forma aleatória. Será usada para gerar um "código" aleatório no mini-game
+const alterarListaMiniGame = (lista, indice = 0) => {
+    if (indice === lista.length) return lista
+    else {
+        lista[indice] = gna(2)
+    }
+    return alterarListaMiniGame(lista, indice + 1)
+}
+
+//função que "anula" uma lista, deixando todos os seus elementos nulos, será usada para resetar a lista que representa as entradas dos usuários no mini-game ao começar uma nova rodada
+const anularLista = (lista, indice = 0) => {
+    if (indice === lista.length) return lista
+    else {
+        lista[indice] = null
+    }
+    return anularLista(lista, indice + 1)
+}
