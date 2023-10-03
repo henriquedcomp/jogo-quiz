@@ -23,11 +23,11 @@
     margin: 0;
 }
 
-body, #quiz-area1, .respostas, .botao, #conteudo-meio, #quiz-area2, #barras-de-vida, .coracoes-caixa, .barra-de-vida {
+body, #quiz-area1, .respostas, .botao, #conteudo-meio, #quiz-area2, #barras-de-vida, .coracoes-caixa, .barra-de-vida, #caixa-simbolos {
     display: flex;
 }
 
-.coracoes-caixa, .barra-de-vida, .botao, #conteudo-meio {
+.coracoes-caixa, .barra-de-vida, .botao, #conteudo-meio, #caixa-simbolos {
     align-items: center;
 }
 
@@ -99,7 +99,7 @@ body {
     font-family: monospace;
 }
 
-button {
+.botao > button {
     height: 45px;
     margin: 10px;
     margin-left: 0;
@@ -119,6 +119,7 @@ button {
     height: 97.795vh;
     margin: 0 2%;
     margin-top: 10px;
+    justify-content: space-between;
 }
 
 #quadro {
@@ -166,16 +167,54 @@ button {
     margin-right: -15px;
 }
 
-#caixa-vs {
-    margin-top: 3%;
-}
-
 #vs-texto {
     font-size: 70px;
     font-family: 'Caveat Brush', cursive;
 }
 
+#codigo-caixa {
+    width: 200px;
+    height: 100px;
+    background-color: var(--corDeFundo);
+    color: var(--corDeDestaque);
+    position: relative;
+    font-size: 18px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: none;
+    margin-bottom: 20%;
+}
+
+#caixa-simbolos {
+    font-family: monospace;
+    padding: 20% 0;
+    justify-content: space-evenly;
+}
+
+.barra-de-tempo {
+    width: 100%;
+    height: 4px;
+    background-color: var(--corDeDestaque);
+    border-radius: 10px 10px 0 0;
+    position: absolute;
+    left: -100%;
+    top: 0;
+}
+
+.carregamento {
+    animation: carregamento 3s linear;
+}
+
 #quiz-area2 {
     margin-right: 3%;
     background: linear-gradient(180deg, var(--corEscuraJogador2), var(--corClaraJogador2))
+}
+
+@keyframes carregamento {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0;
+    }
 }

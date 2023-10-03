@@ -1,5 +1,5 @@
 //função que retorna um número aleatório entre 0 e alcance(o valor retornado é sempre menor que alcance). O Math.random retorna um número no intervalo semiaberto [0, 1), esse número é multiplicado por alcance, somado com minimo(caso deseje-se definir um valor mínimo de retorno diferente de 0) e então arredondado para baixo com o Math.floor
-const gna = (alcance, minimo) => Math.floor((Math.random() * alcance) + minimo)
+const gna = (alcance, minimo = 0) => Math.floor((Math.random() * alcance) + minimo)
 
 //função que recebe um índice como parâmetro e define o valor do array na posição indice como null
 const removerElemento = (lista) => (indice) => lista[indice] = null
@@ -45,26 +45,25 @@ const adcnQuestao = (per, op1, op2, op3, op4, opc) => {
     }
 }
 
-//função que identifica o valor de cada elemento de uma lista composta por zeros e uns. Essa função será usada para atualizar a barra de vida dos jogadores.
-const adicionarElemento = (elemento) => (lista, itemHTML, indice = 0) => {
+//função que identifica o valor de cada elemento de uma lista composta por zeros e uns. Essa função será usada para atualizar a barra de vida dos jogadores e para exibir o "código" do mini-game na tela
+const adicionarElemento = (elemento1, elemento2) => (lista, itemHTML, indice = 0) => {
     if (indice === 0) itemHTML.innerHTML = ""
     if (indice === lista.length) return
-    else if (lista[indice] === 1) {
-      itemHTML.innerHTML += elemento
-      adicionarElemento(elemento)(lista, itemHTML, indice + 1)
-    }
-    else return adicionarElemento(elemento)(lista, itemHTML, indice + 1)
+    else if (lista[indice] === 0) itemHTML.innerHTML += elemento1
+    else itemHTML.innerHTML += elemento2
+    adicionarElemento(elemento1, elemento2)(lista, itemHTML, indice + 1)
 }
-//função que altera os elementos de uma lista para zeros e uns de forma aleatória. Será usada para gerar um "código" aleatório no mini-game
-const alterarListaMiniGame = (lista, indice = 0) => {
+
+//função que altera os elementos de uma lista para zeros e uns de forma aleatória. Será usada para gerar um "código" aleatório no mini jogo
+const alterarParaValoresBinarios = (lista, indice = 0) => {
     if (indice === lista.length) return lista
     else {
         lista[indice] = gna(2)
     }
-    return alterarListaMiniGame(lista, indice + 1)
+    return alterarParaValoresBinarios(lista, indice + 1)
 }
 
-//função que "anula" uma lista, deixando todos os seus elementos nulos, será usada para resetar a lista que representa as entradas dos usuários no mini-game ao começar uma nova rodada
+//função que "anula" uma lista, deixando todos os seus elementos nulos, será usada para resetar a lista que representa as entradas dos usuários no mini jogo ao começar uma nova rodada
 const anularLista = (lista, indice = 0) => {
     if (indice === lista.length) return lista
     else {
@@ -72,3 +71,4 @@ const anularLista = (lista, indice = 0) => {
     }
     return anularLista(lista, indice + 1)
 }
+//NOTA: Como as funções alterarParaValoresBinarios e anularLista são muito parecidas, pensamos em criar uma forma currificada para reaproveitar o código. No entanto, como na função "alterarParaValoresBinarios" o valor atribuído à cada uma das posições da lista é aleatório, não estava funcionando criar uma forma currificada, passando o valor que será atribuído na lista como parâmetro, porque a função citada estava deixando a lista só com zeros ou só com uns, o que não é o objetivo, a ideia é ter zeros e uns misturados na lista
