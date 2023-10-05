@@ -1,4 +1,4 @@
-import {perguntas, imgCoracaoAzul, imgCoracaoVerde, vidaJogador1, vidaJogador2, codigoBase, codigoInserido, tempo, preto, cinza, vermelho, verde, branco, simbolo1, simbolo2, azulJ1, verdeJ2} from "./banco_de_dados.js"
+import {perguntas, vidaJogador1, vidaJogador2, codigoBase, codigoInserido, tempo} from "./banco_de_dados.js"
 
 //captura no js de elementos do HTML
 const quizArea1 = document.getElementById("quiz-area1")
@@ -18,7 +18,7 @@ const opcao4Quiz2 = document.getElementById("opcao4-quiz2")
 const barraDeVida2 = document.getElementById("caixa-coracoes-2")
 
 const cronometro = document.getElementById("cronometro")
-const caixa = document.getElementById("caixa-simbolos")
+const caixa = document.getElementById("caixa-minijogo")
 const carregamento = document.querySelector(".barra-de-tempo")
 const principal = document.querySelector("body")
 
@@ -31,6 +31,7 @@ let variavelDeControle
 //função que inicia o jogo
 function comecarJogo() {
     carregarPergunta()
+    atualizarBarrasDeVidaVisual()
     configurarCronometro()
     comecarMiniJogo()
     setInterval(configurarCronometro, 1000)
@@ -50,7 +51,6 @@ window.verificarResposta = function (botao) {
     
     removerQuestao(indiceAleatorio)
     setTimeout(carregarPergunta, 400)
-    setTimeout(() => punirErro(jogadorAtuante, statusAtual, 2000), 601)
 }
 
 //função que desativa os botões na tela com base no jogador que lhe é passado como parâmetro
@@ -73,25 +73,25 @@ function desativarBotoes(jogador) {
 //função que realiza as mudanças visuais na tela quando os botões são desativados
 function desativarBotoesVisual(jogador) {
     if(jogador === 1) {
-        opcao1.style.color = preto
-        opcao2.style.color = preto
-        opcao3.style.color = preto
-        opcao4.style.color = preto
+        opcao1.style.color = "black"
+        opcao2.style.color = "black"
+        opcao3.style.color = "black"
+        opcao4.style.color = "black"
 
-        opcao1.style.backgroundColor = cinza
-        opcao2.style.backgroundColor = cinza
-        opcao3.style.backgroundColor = cinza
-        opcao4.style.backgroundColor = cinza
+        opcao1.style.backgroundColor = "#b6b4b4"
+        opcao2.style.backgroundColor = "#b6b4b4"
+        opcao3.style.backgroundColor = "#b6b4b4"
+        opcao4.style.backgroundColor = "#b6b4b4"
     } else {
-        opcao1Quiz2.style.color = preto
-        opcao2Quiz2.style.color = preto
-        opcao3Quiz2.style.color = preto
-        opcao4Quiz2.style.color = preto
+        opcao1Quiz2.style.color = "black"
+        opcao2Quiz2.style.color = "black"
+        opcao3Quiz2.style.color = "black"
+        opcao4Quiz2.style.color = "black"
 
-        opcao1Quiz2.style.backgroundColor = cinza
-        opcao2Quiz2.style.backgroundColor = cinza
-        opcao3Quiz2.style.backgroundColor = cinza
-        opcao4Quiz2.style.backgroundColor = cinza
+        opcao1Quiz2.style.backgroundColor = "#b6b4b4"
+        opcao2Quiz2.style.backgroundColor = "#b6b4b4"
+        opcao3Quiz2.style.backgroundColor = "#b6b4b4"
+        opcao4Quiz2.style.backgroundColor = "#b6b4b4"
     }
 }
 
@@ -100,11 +100,11 @@ function conferirResposta(bto, indice) {
     const respCorreta = perguntas[indice].opcaocorreta
 
     if(bto.value !== respCorreta) {
-        bto.style.backgroundColor = vermelho
+        bto.style.backgroundColor = "red"
         return 0
     }
     else {
-        bto.style.backgroundColor = verde 
+        bto.style.backgroundColor = "green"
         return 1
     }
 }
@@ -112,8 +112,8 @@ function conferirResposta(bto, indice) {
 //função que altera as listas que representam as barras de vida dos jogadores
 function atualizarBarraDeVida (jogador, status) {
     if(status === 0) {
-        if(jogador === 1) recuperarVida(vidaJogador2)
-        else recuperarVida(vidaJogador1)
+        if(jogador === 1) causarDano(vidaJogador1)
+        else causarDano(vidaJogador2)
     } else {
         if(jogador === 1) causarDano(vidaJogador2)
         else causarDano(vidaJogador1)
@@ -122,8 +122,8 @@ function atualizarBarraDeVida (jogador, status) {
 
 //função que atualiza os corações na tela
 function atualizarBarrasDeVidaVisual() {
-    adicionarElemento("", imgCoracaoAzul)(vidaJogador1, barraDeVida1)
-    adicionarElemento("", imgCoracaoVerde)(vidaJogador2, barraDeVida2)
+    adicionarElemento("", '<img class="coracao" src="imagens/coracao-azul.png" alt="Coração Azul">')(vidaJogador1, barraDeVida1)
+    adicionarElemento("", '<img class="coracao" src="imagens/coracao-verde.png" alt="Coração Verde">')(vidaJogador2, barraDeVida2)
 }
 
 //aplicação da função removerElemento na lista de questões
@@ -133,7 +133,7 @@ const removerQuestao = removerElemento(perguntas)
 function carregarPergunta() {
     if(verificarFimDeJogo() === false) {
 
-        indiceAleatorio = gna(perguntas.length)
+        indiceAleatorio = numeroAleatorio(perguntas.length)
 
         if(perguntas[indiceAleatorio] !== null) {
             reverterMarcacaoBotao("both")
@@ -148,15 +148,6 @@ function carregarPergunta() {
     } else exibirTelaDeFimDeJogo()
 }
 
-//função que pune o jogador caso ele erre alguma pergunta ou não dê uma entrada correta no mini jogo
-function punirErro(jogador, status, duracao) {
-    if(status === 0) {
-        desativarBotoes(jogador)
-        setTimeout(() => ativarBotoes(jogador), duracao)
-        setTimeout(() => reverterMarcacaoBotao(jogador), duracao)
-    }
-}
-
 //função que verifica se o jogo acabou --> Atualmente o único modo do jogo acabar é se o banco de perguntas se esgotar mas em implementações futuras será adicionada uma nova condição
 const verificarFimDeJogo = () => {
     if(verificarEmpate(perguntas)) return "EMPATE"
@@ -169,25 +160,25 @@ const verificarFimDeJogo = () => {
 //função que remove a marcação de certo/errado adicionada quando o usuário seleciona uma alternativa
 function reverterMarcacaoBotao(jogador) {
     if(jogador === 1) {
-        opcao1.style.backgroundColor = branco
-        opcao2.style.backgroundColor = branco
-        opcao3.style.backgroundColor = branco
-        opcao4.style.backgroundColor = branco
+        opcao1.style.backgroundColor = "white"
+        opcao2.style.backgroundColor = "white"
+        opcao3.style.backgroundColor = "white"
+        opcao4.style.backgroundColor = "white"
     } else if(jogador === "both") {
-        opcao1.style.backgroundColor = branco
-        opcao2.style.backgroundColor = branco
-        opcao3.style.backgroundColor = branco
-        opcao4.style.backgroundColor = branco
+        opcao1.style.backgroundColor = "white"
+        opcao2.style.backgroundColor = "white"
+        opcao3.style.backgroundColor = "white"
+        opcao4.style.backgroundColor = "white"
 
-        opcao1Quiz2.style.backgroundColor = branco
-        opcao2Quiz2.style.backgroundColor = branco
-        opcao3Quiz2.style.backgroundColor = branco
-        opcao4Quiz2.style.backgroundColor = branco
+        opcao1Quiz2.style.backgroundColor = "white"
+        opcao2Quiz2.style.backgroundColor = "white"
+        opcao3Quiz2.style.backgroundColor = "white"
+        opcao4Quiz2.style.backgroundColor = "white"
     } else {
-        opcao1Quiz2.style.backgroundColor = branco
-        opcao2Quiz2.style.backgroundColor = branco
-        opcao3Quiz2.style.backgroundColor = branco
-        opcao4Quiz2.style.backgroundColor = branco
+        opcao1Quiz2.style.backgroundColor = "white"
+        opcao2Quiz2.style.backgroundColor = "white"
+        opcao3Quiz2.style.backgroundColor = "white"
+        opcao4Quiz2.style.backgroundColor = "white"
     }
 }
 
@@ -263,7 +254,7 @@ function comecarMiniJogo() {
     alterarParaValoresBinarios(codigoBase)
     anularLista(codigoInserido)
     
-    adicionarElemento(simbolo1, simbolo2)(codigoBase, caixa)
+    adicionarElemento(`<div class="botao-minijogo-azul"></div>`, `<div class="botao-minijogo-verde"></div>`)(codigoBase, caixa)
 
     resetarContagem()
 }
@@ -273,26 +264,34 @@ function inserirCodigoResposta (caractere, codigo, base, indice = 0) {
     if(indice === 5) return
     else if(codigo[indice] === null) {
         codigo[indice] = caractere
-        marcarSimbolo(caractere, indice)
+        marcarBotao(caractere, indice)
         verificarErro(base, codigo)
     }
     else inserirCodigoResposta(caractere, codigo, base, indice + 1)
 }
 
-//função que marca o símbolo na tela com a cor respectiva, caso a entrada tenha sido a correta
-function marcarSimbolo(crcter, indc) {
-    if(crcter === 0) caixa.children[indc].style.color = azulJ1
-    else caixa.children[indc].style.color = verdeJ2
+//função que apaaga o botão na tela caso a entrada tenha sido a correta para dar um feedback para o jogador
+function marcarBotao(crcter, indc) {
+    if(crcter === 0) caixa.children[indc].style.backgroundColor = "black"
+    else caixa.children[indc].style.backgroundColor = "black"
 } 
 
 //função que verifica se a entrada do usuário foi correta no mini jogo
 function verificarErro(lista1, lista2, indice = 0) {
-    if(indice === lista1.length) comecarMiniJogo()
+    if(indice === lista1.length) setTimeout(comecarMiniJogo, 100)
     else if(lista1[indice] === lista2[indice]) verificarErro(lista1, lista2, indice + 1)
     else if(lista2[indice] !== null) {
-        if(lista2[indice] === 0) punirErro(1, 0, 3000)
-        else punirErro(2, 0, 3000)
-        comecarMiniJogo()
+        if(lista2[indice] === 0) {
+            recuperarVida(vidaJogador2)
+            recuperarVida(vidaJogador2)
+            atualizarBarrasDeVidaVisual()
+        }
+        else {
+            recuperarVida(vidaJogador1)
+            recuperarVida(vidaJogador1)
+            atualizarBarrasDeVidaVisual()
+        }
+        setTimeout(comecarMiniJogo, 100)
     }
 }
 
@@ -302,10 +301,18 @@ function verificarAusencia(codigo, base, indice = 0) {
     if(codigo[indice] !== null) verificarAusencia(codigo, base, indice + 1)
     else {
         variavelDeControle = setTimeout(() => {
-            if(base[indice] === 0) punirErro(1, 0, 3000)
-            else punirErro(2, 0, 3000)
+            if(base[indice] === 0) {
+                recuperarVida(vidaJogador2)
+                recuperarVida(vidaJogador2)
+                atualizarBarrasDeVidaVisual()
+            }
+            else {
+                recuperarVida(vidaJogador1)
+                recuperarVida(vidaJogador1)
+                atualizarBarrasDeVidaVisual()
+            }
             comecarMiniJogo()
-        }, 3500)
+        }, 4000)
     }
 }
 
@@ -320,16 +327,16 @@ function resetarContagem() {
 //função que configura as teclas que serão ouvidas pelo "EventListener"
 function configurarTeclas(event) {
     switch(event.key.toLowerCase()) {
-        case "w" : if(!opcao1.disabled) opcao1.click(); else break;
-        case "a" : if(!opcao2.disabled) opcao2.click(); else break;
-        case "s" : if(!opcao3.disabled) opcao3.click(); else break;
-        case "d" : if(!opcao4.disabled) opcao4.click(); else break;
+        case "w" : opcao1.click()
+        case "a" : opcao2.click()
+        case "s" : opcao3.click()
+        case "d" : opcao4.click()
         case "arrowup" : opcao1Quiz2.click()
         case "arrowleft" : opcao2Quiz2.click()
         case "arrowdown" : opcao3Quiz2.click()
         case "arrowright" : opcao4Quiz2.click()
     }
-    //teclas relacionadas ao mini-game
+    //teclas relacionadas ao mini jogo
     if(event.keyCode === 32) {
         inserirCodigoResposta(0, codigoInserido, codigoBase)
         resetarContagem()
@@ -340,10 +347,13 @@ function configurarTeclas(event) {
     }
 }
 
+//desativa os eventos de teclado para não ocorrer eventuais problemas na página
+document.addEventListener("keydown", (event) => event.preventDefault())
+
 //adição do "listener" para ouvir o pressionar do teclado
 document.addEventListener("keydown", configurarTeclas)
 
-//exibir as regras do jogo
+//exibir as regras do jogo com a API SweetAlert
 await Swal.fire({
     title: 'REGRAS DE JOGO',
     html: '<p style="text-align: justify">Os jogadores irão competir numa batalha de QUIZ. Cada jogador inicia com 5 vidas cada. Cada acerto tira 1 ponto de vida do outro jogador e cada erro recupera 1 ponto de vida do adversário, além de receber um pequeno atraso para conseguir responder a próxima questão. O jogo acaba quando um dos jogadores zerar seus pontos de vida ou quando a quantidade de perguntas acabar(empate). O jogador 1 seleciona sua resposta com WASD, enquanto o jogador 2 com ↑←↓→. Além disso, simultaneamente ao QUIZ, os jogadores terão que resolver um outro joguinho: A cada * que aparece na tela, o jogador 1 deve pressionar BARRA DE ESPAÇO. A cada # o jogador 2 deve pressionar ENTER. Caso não o faça, ficará 3s sem conseguir responder uma pergunta no QUIZ.</p>',

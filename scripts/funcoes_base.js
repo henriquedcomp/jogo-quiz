@@ -1,16 +1,11 @@
 //função que retorna um número aleatório entre 0 e alcance(o valor retornado é sempre menor que alcance). O Math.random retorna um número no intervalo semiaberto [0, 1), esse número é multiplicado por alcance, somado com minimo(caso deseje-se definir um valor mínimo de retorno diferente de 0) e então arredondado para baixo com o Math.floor
-const gna = (alcance, minimo = 0) => Math.floor((Math.random() * alcance) + minimo)
+const numeroAleatorio = (alcance, minimo = 0) => Math.floor((Math.random() * alcance) + minimo)
 
 //função que recebe um índice como parâmetro e define o valor do array na posição indice como null
 const removerElemento = (lista) => (indice) => lista[indice] = null
 
-//função que usa recursividade para verificar se todos os elementos de uma lista são nulos, o que configura um empate. Ela será usada passando a lista de perguntas como argumento na função verificarFimDeJogo
-const verificarEmpate = (lista) => {
-    const [x, ...xs] = lista
-    if(typeof(x) === "undefined") return true
-    else if(x !== null) return false
-    return verificarEmpate(xs)
-}
+//função verifica se todos os elementos de uma lista são nulos usando filter. Será usada para verificar empate, o que ocorre quando a lista de perguntas é composta somente por null
+const verificarEmpate = (lista) => lista.filter((x) => x !== null).length === 0? true : false
 
 //função que utiliza do conceito de currying para modificar a barra de vida dos jogadores. O parâmetro indice diz respeito ao valor que será usado para iterar nas casas da lista que representa a barra de vida dos jogadores. Modificador indica como o indice vai alterar seu valor a cada chamada recursiva (+1 ou -1 a depender se for usada para causar dano ou regenerar vida). Val1 e val 2 são parâmetros auxiliares para tomar uma decisão(na função de causar dano por exemplo, se a lista na posição indice for igual a 1(val1) esse valor será trocado por 0(val 2) o que indica que o player perdeu 1 de vida. Na função de regenerar vida ocorre o contrário). O parâmetro lista indica a lista que será analisada na função(vidaPlayer1 ou vidaPlayer2)
 const modificarBarraDeVida = (modificador, indice) => (val1, val2) => (lista) => {
@@ -34,14 +29,14 @@ const recuperarVida = modificarBarraDeVida(1, 0)(0, 1)
 const verificarVidaZerada = (lista) => lista.reduce((acc, x) => acc + x) === 0? true : false
  
 //função para criar um objeto de pergunta com as opções de respostas e a resposta correta, será usada para adicionar as perguntas na lista
-const adcnQuestao = (per, op1, op2, op3, op4, opc) => {
+const adicionarQuestao = (pergunta, opcao1, opcao2, opcao3, opcao4, opcaocorreta) => {
     return {
-        pergunta: per,
-        opcao1: op1,
-        opcao2:op2,
-        opcao3: op3,
-        opcao4: op4,
-        opcaocorreta: opc
+        pergunta: pergunta,
+        opcao1: opcao1,
+        opcao2:opcao2,
+        opcao3: opcao3,
+        opcao4: opcao4,
+        opcaocorreta: opcaocorreta
     }
 }
 
@@ -58,7 +53,7 @@ const adicionarElemento = (elemento1, elemento2) => (lista, itemHTML, indice = 0
 const alterarParaValoresBinarios = (lista, indice = 0) => {
     if (indice === lista.length) return lista
     else {
-        lista[indice] = gna(2)
+        lista[indice] = numeroAleatorio(2)
     }
     return alterarParaValoresBinarios(lista, indice + 1)
 }
