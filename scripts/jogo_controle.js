@@ -251,12 +251,14 @@ function configurarCronometro() {
 
 //função que inicia o mini jogo, chamando as funções necessárias para tal
 function comecarMiniJogo() {
-    alterarParaValoresBinarios(codigoBase)
-    anularLista(codigoInserido)
+    if(verificarFimDeJogo() === false) {
+        alterarParaValoresBinarios(codigoBase)
+        anularLista(codigoInserido)
     
-    adicionarElemento(`<div class="botao-minijogo-azul"></div>`, `<div class="botao-minijogo-verde"></div>`)(codigoBase, caixa)
+        adicionarElemento(`<div class="botao-minijogo-azul"></div>`, `<div class="botao-minijogo-verde"></div>`)(codigoBase, caixa)
 
-    resetarContagem()
+        resetarContagem()
+    }
 }
 
 //função que será chamada quando os jogadores interagem no mini jogo. Ela adiciona um caractere na lista que representa a resposta do usuário e em seguida chama a função que confere se a entrada foi correta
@@ -271,9 +273,9 @@ function inserirCodigoResposta (caractere, codigo, base, indice = 0) {
 }
 
 //função que apaaga o botão na tela caso a entrada tenha sido a correta para dar um feedback para o jogador
-function marcarBotao(crcter, indc) {
-    if(crcter === 0) caixa.children[indc].style.backgroundColor = "black"
-    else caixa.children[indc].style.backgroundColor = "black"
+function marcarBotao(caractere, indice) {
+    if(caractere === 0) caixa.children[indice].style.backgroundColor = "black"
+    else caixa.children[indice].style.backgroundColor = "black"
 } 
 
 //função que verifica se a entrada do usuário foi correta no mini jogo
