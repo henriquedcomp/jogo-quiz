@@ -1,0 +1,40 @@
+#botao {
+    position: absolute;
+    top: 80%;
+    left: 85%;
+    width: 150px;
+    height: 70px;
+    color: #ffffff;
+    font-size:xx-large;
+    background-color: #3D3C3C;
+    border-radius: 10px;
+}
+
+* {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #D3D3D4;
+}
+
+.fim {
+    width: 450px;
+    height: 165px;
+    font-size:xx-large;
+    border-radius: 20% 15%;
+    margin: 0 auto;
+    margin-top: 5%;
+    border: 1px solid;
+    border-color: #000000;
+    text-align: center;
+}
+
+.resultado {
+    width: 300px;
+    height: 150px;
+    font-size:larger;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 7%;
+    border: 3px solid;
+    border-color: #000000;
+    text-align: center;
+}
