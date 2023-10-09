@@ -29,7 +29,7 @@ let indiceAleatorio
 let variavelDeControle
 
 //função que inicia o jogo
-function comecarJogo() {
+const comecarJogo = () => {
     carregarPergunta()
     atualizarBarrasDeVidaVisual()
     configurarCronometro()
@@ -38,7 +38,7 @@ function comecarJogo() {
 }
 
 //função que é acionada quando um dos botões de resposta do HTML é acionado. Ela chama todas as funções necessárias para prosseguir com o jogo. Desativar os botões, verificar se o jogador acertou ou não...
-window.verificarResposta = function (botao) {
+window.verificarResposta = (botao) => {
     const jogadorAtuante = botao.classList[0] === "botao-quiz1"? 1 : 2   //verifica qual jogador selecionou alguma resposta
 
     desativarBotoes(1)
@@ -54,7 +54,7 @@ window.verificarResposta = function (botao) {
 }
 
 //função que desativa os botões na tela com base no jogador que lhe é passado como parâmetro
-function desativarBotoes(jogador) {
+const desativarBotoes = (jogador) => {
     if(jogador === 1) {
         opcao1.disabled = true
         opcao2.disabled = true
@@ -71,7 +71,7 @@ function desativarBotoes(jogador) {
 }
 
 //função que realiza as mudanças visuais na tela quando os botões são desativados
-function desativarBotoesVisual(jogador) {
+const desativarBotoesVisual = (jogador) => {
     if(jogador === 1) {
         opcao1.style.color = "black"
         opcao2.style.color = "black"
@@ -96,7 +96,7 @@ function desativarBotoesVisual(jogador) {
 }
 
 //funcao que marca na tela como certa ou errada a alternativa selecionada pelo usuário
-function conferirResposta(bto, indice) {
+const conferirResposta = (bto, indice) => {
     const respCorreta = perguntas[indice].opcaocorreta
 
     if(bto.value !== respCorreta) {
@@ -110,7 +110,7 @@ function conferirResposta(bto, indice) {
 }
 
 //função que altera as listas que representam as barras de vida dos jogadores
-function atualizarBarraDeVida (jogador, status) {
+const atualizarBarraDeVida = (jogador, status) => {
     if(status === 0) {
         if(jogador === 1) causarDano(vidaJogador1)
         else causarDano(vidaJogador2)
@@ -121,7 +121,7 @@ function atualizarBarraDeVida (jogador, status) {
 }
 
 //função que atualiza os corações na tela
-function atualizarBarrasDeVidaVisual() {
+const atualizarBarrasDeVidaVisual = () => {
     adicionarElemento("", '<img class="coracao" src="imagens/coracao-azul.png" alt="Coração Azul">')(vidaJogador1, barraDeVida1)
     adicionarElemento("", '<img class="coracao" src="imagens/coracao-verde.png" alt="Coração Verde">')(vidaJogador2, barraDeVida2)
 }
@@ -130,7 +130,7 @@ function atualizarBarrasDeVidaVisual() {
 const removerQuestao = removerElemento(perguntas)
 
 //função que, caso o jogo não tenha se encerrado, configura uma nova pergunta na tela e começa uma nova rodada. Caso o jogo tenha se encerrado, chama a função exibirTelaDeFimDeJogo
-function carregarPergunta() {
+const carregarPergunta = () => {
     if(verificarFimDeJogo() === false) {
 
         indiceAleatorio = numeroAleatorio(perguntas.length)
@@ -158,7 +158,7 @@ const verificarFimDeJogo = () => {
 }
 
 //função que remove a marcação de certo/errado adicionada quando o usuário seleciona uma alternativa
-function reverterMarcacaoBotao(jogador) {
+const reverterMarcacaoBotao = (jogador) => {
     if(jogador === 1) {
         opcao1.style.backgroundColor = "white"
         opcao2.style.backgroundColor = "white"
@@ -209,7 +209,7 @@ const definirPergunta = (indice) => {
 }
 
 //função que torna a ativar os botões com base no jogador que lhe é passado como parâmetro
-function ativarBotoes(jogador) {
+const ativarBotoes = (jogador) => {
     if(jogador === 1) {
         opcao1.disabled = false
         opcao2.disabled = false
@@ -224,7 +224,7 @@ function ativarBotoes(jogador) {
 }
 
 //exibe uma tela improvisada de fim de jogo
-function exibirTelaDeFimDeJogo() {
+const exibirTelaDeFimDeJogo = () => {
     quizArea1.style.display = "none"
     quizArea2.style.display = "none"
     principal.innerHTML = 
@@ -235,7 +235,7 @@ function exibirTelaDeFimDeJogo() {
 }
 
 //função que vai atualizando o cronômetro na tela a cada 1s
-function configurarCronometro() {
+const configurarCronometro = () => {
     cronometro.innerHTML = `${tempo[0]}${tempo[1]}:${tempo[2]}${tempo[3]}`
     if(tempo[3]=== 9) {
         if(tempo[2]=== 5) {
@@ -250,7 +250,7 @@ function configurarCronometro() {
 }
 
 //função que inicia o mini jogo, chamando as funções necessárias para tal
-function comecarMiniJogo() {
+const comecarMiniJogo = () => {
     if(verificarFimDeJogo() === false) {
         alterarParaValoresBinarios(codigoBase)
         anularLista(codigoInserido)
@@ -262,7 +262,7 @@ function comecarMiniJogo() {
 }
 
 //função que será chamada quando os jogadores interagem no mini jogo. Ela adiciona um caractere na lista que representa a resposta do usuário e em seguida chama a função que confere se a entrada foi correta
-function inserirCodigoResposta (caractere, codigo, base, indice = 0) {
+const inserirCodigoResposta = (caractere, codigo, base, indice = 0) => {
     if(indice === 5) return
     else if(codigo[indice] === null) {
         codigo[indice] = caractere
@@ -273,13 +273,13 @@ function inserirCodigoResposta (caractere, codigo, base, indice = 0) {
 }
 
 //função que apaaga o botão na tela caso a entrada tenha sido a correta para dar um feedback para o jogador
-function marcarBotao(caractere, indice) {
+const marcarBotao = (caractere, indice) => {
     if(caractere === 0) caixa.children[indice].style.backgroundColor = "black"
     else caixa.children[indice].style.backgroundColor = "black"
 } 
 
 //função que verifica se a entrada do usuário foi correta no mini jogo
-function verificarErro(lista1, lista2, indice = 0) {
+const verificarErro = (lista1, lista2, indice = 0) => {
     if(indice === lista1.length) setTimeout(comecarMiniJogo, 100)
     else if(lista1[indice] === lista2[indice]) verificarErro(lista1, lista2, indice + 1)
     else if(lista2[indice] !== null) {
@@ -298,7 +298,7 @@ function verificarErro(lista1, lista2, indice = 0) {
 }
 
 //função que verifica se os jogadores excederam o tempo-limite para dar alguma entrada no mini jogo
-function verificarAusencia(codigo, base, indice = 0) {
+const verificarAusencia = (codigo, base, indice = 0) => {
     if(indice === codigo.length) return
     if(codigo[indice] !== null) verificarAusencia(codigo, base, indice + 1)
     else {
@@ -319,7 +319,7 @@ function verificarAusencia(codigo, base, indice = 0) {
 }
 
 //função que reseta a contagem do tempo-limite para os jogadores darem alguma entrada no mini jogo
-function resetarContagem() {
+const resetarContagem = () => {
     clearTimeout(variavelDeControle)
     carregamento.classList.remove("carregamento")
     verificarAusencia(codigoInserido, codigoBase)
@@ -327,7 +327,7 @@ function resetarContagem() {
 }
 
 //função que configura as teclas que serão ouvidas pelo "EventListener"
-function configurarTeclas(event) {
+const configurarTeclas = (event) => {
     switch(event.key.toLowerCase()) {
         case "w" : opcao1.click()
         case "a" : opcao2.click()
@@ -358,7 +358,7 @@ document.addEventListener("keydown", configurarTeclas)
 //exibir as regras do jogo com a API SweetAlert
 await Swal.fire({
     title: 'REGRAS DE JOGO',
-    html: '<p style="text-align: justify">Os jogadores irão competir numa batalha de QUIZ. Cada jogador inicia com 5 vidas cada. Cada acerto tira 1 ponto de vida do outro jogador e cada erro recupera 1 ponto de vida do adversário, além de receber um pequeno atraso para conseguir responder a próxima questão. O jogo acaba quando um dos jogadores zerar seus pontos de vida ou quando a quantidade de perguntas acabar(empate). O jogador 1 seleciona sua resposta com WASD, enquanto o jogador 2 com ↑←↓→. Além disso, simultaneamente ao QUIZ, os jogadores terão que resolver um outro joguinho: A cada * que aparece na tela, o jogador 1 deve pressionar BARRA DE ESPAÇO. A cada # o jogador 2 deve pressionar ENTER. Caso não o faça, ficará 3s sem conseguir responder uma pergunta no QUIZ.</p>',
+    html: '<p style="text-align: justify">Acerto de pergunta >> Causa dano <br> Erro de pergunta >> perde vida <br> Se não apertar o botão na sua vez, recuperará dois pontos de vida do seu adversário!!</p>',
     icon: 'warning',
     confirmButtonText: 'OK'
 })
