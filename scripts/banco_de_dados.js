@@ -15,7 +15,6 @@ const perguntas = [
     adicionarQuestao("Que fruto nasce da oliveira?", "Acerola",  "Açaí", "Azeitona", "Abacate",  "Azeitona" ),
     adicionarQuestao("Qual país sediará as olimpíadas de 2024?", "Estados Unidos",  "França", "Austrália", "Brasil",  "França" ),
     adicionarQuestao("Qual é o nome artístico da cantora Larissa de Macedo Machado?", "Larissa Manoela",  "Xuxa", "Ludmilla", "Anitta",  "Anitta" ),
-    adicionarQuestao("Qual das alternativas as palavras estão escritas corretamente?", "reinvindicar, madastra, iogurte",  "reivindicar, madastra, iorgute", "reivindicar, madrasta, iogurte", "reinvindicar, madrasta, iorgute",  "reivindicar, madrasta, iogurte" ),
     adicionarQuestao("Quantos elementos têm a tabela periódica?", "118",  "106", "128", "135",  "118" ),
     adicionarQuestao("Qual o nome da galáxia em que a Terra está?", "Galáxia de Andrômeda",  "Galáxia do Rodamoinho", "Via Láctea", "Galáxia do Sombreiro",  "Via Láctea" ),
     adicionarQuestao("Em que período da pré-história o fogo foi descoberto?", "Período da Pedra Polida",  "Paleolítico", "Mesolítico", "Idade Antiga",  "Paleolítico" ),
@@ -52,13 +51,20 @@ const perguntas = [
     adicionarQuestao("Quantas vogais há na palavra “RESISTÊNCIA”?",  "4", "6", "7", "5", "5" ),
     adicionarQuestao("Em pokémon, o tipo normal é super efetivo em qual(is) outros tipos?",  "Lutador", "Fantasma", "Nenhum", "Todos", "Nenhum" ),
     adicionarQuestao("Qual a moeda usada no Reino Unido?",  "Euro", "Dólar", "Libra esterlina", "Real", "Libra esterlina" ),
+    adicionarQuestao("1GB equivale a quantos MB?",  "1000MB", "100MB", "124MB", "1024MB", "1024MB" ),
+    adicionarQuestao("Qual das seguintes línguas não deriva do latim?",  "Galego", "Português", "Francês", "Grego", "Grego" ),
+    adicionarQuestao("Qual a cor, na coleta seletiva, referente ao vidro?",  "Vermelho", "Azul", "Amarelo", "Verde", "Verde" ),
+    adicionarQuestao("Qual a principal fonte de energia do organismo humano?",  "Proteínas", "Vitaminas", "Lipídios", "Carboidratos", "Carboidratos" ),
+    adicionarQuestao("Quantos átomos de Oxigênio há numa molécula de água?",  "2", "0", "3", "1", "1" ),
+    adicionarQuestao("Qual dos seguintes materiais possui maior dureza?",  "Diamante", "Chumbo", "Granito", "Ouro", "Diamante" ),
+    adicionarQuestao("Quantos pinos há num jogo de boliche?",  "12", "6", "8", "10", "10" ),
 ]
 
 //listas representativas das barras de vida dos jogadores
 const vidaJogador1 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 const vidaJogador2 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
-//listas com os dados do mini-game
+//listas com os dados do mini jogo
 const codigoBase = [null]
 const codigoInserido = [null]
 

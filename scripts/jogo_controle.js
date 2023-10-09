@@ -1,7 +1,6 @@
 import {perguntas, vidaJogador1, vidaJogador2, codigoBase, codigoInserido, tempo} from "./banco_de_dados.js"
 
 //captura no js de elementos do HTML
-const quizArea1 = document.getElementById("quiz-area1")
 const pergunta1 = document.getElementById("pergunta1")
 const opcao1 = document.getElementById("opcao1")
 const opcao2 = document.getElementById("opcao2")
@@ -9,7 +8,6 @@ const opcao3 = document.getElementById("opcao3")
 const opcao4 = document.getElementById("opcao4")
 const barraDeVida1 = document.getElementById("caixa-coracoes-1")
 
-const quizArea2 = document.getElementById("quiz-area2")
 const pergunta2 = document.getElementById("pergunta2")
 const opcao1Quiz2 = document.getElementById("opcao1-quiz2")
 const opcao2Quiz2 = document.getElementById("opcao2-quiz2")
@@ -22,80 +20,79 @@ const caixa = document.getElementById("caixa-minijogo")
 const carregamento = document.querySelector(".barra-de-tempo")
 const principal = document.querySelector("body")
 
-//declaração da variável que irá receber um valor aleatório para ser usada de índice na lista de perguntas. Isso tem como objetivo selecionar, de forma aleatória, uma pergunta do nosso banco de questões para ser exibida na tela. Como a cada rodada deve-se pegar um valor aleatório de indice para acessar a lista, esse elemento é naturalmente mutável
-let indiceAleatorio
+//declaração de lista unitária que irá receber um valor aleatório para ser usada de índice na lista de perguntas. Isso tem como objetivo selecionar, de forma aleatória, uma pergunta do nosso banco de questões para ser exibida na tela. Como a cada rodada deve-se pegar um valor aleatório de indice para acessar a lista, o elemento da lista deve ser mutável
+const indiceAleatorio = []
 
-//declaração de variável que será responsável por controlar o limite de tempo que os jogadores têm para realizar uma ação no mini-game. Como ela precisa ser reatribuída ao decorrer do código, é naturalmente mutável
+//declaração de variável que será responsável por controlar o limite de tempo que os jogadores têm para realizar uma ação no mini jogo. Como ela precisa ser reatribuída ao decorrer do código, é naturalmente mutável
 let variavelDeControle
 
-//função que inicia o jogo
+//função que inicia o jogo, chamando as funções necessárias para tal
 const comecarJogo = () => {
     carregarPergunta()
     atualizarBarrasDeVidaVisual()
     configurarCronometro()
     comecarMiniJogo()
-    setInterval(configurarCronometro, 1000)
+    
+    return setInterval(configurarCronometro, 1000)
 }
 
 //função que é acionada quando um dos botões de resposta do HTML é acionado. Ela chama todas as funções necessárias para prosseguir com o jogo. Desativar os botões, verificar se o jogador acertou ou não...
 window.verificarResposta = (botao) => {
     const jogadorAtuante = botao.classList[0] === "botao-quiz1"? 1 : 2   //verifica qual jogador selecionou alguma resposta
 
-    desativarBotoes(1)
-    desativarBotoes(2)
+    desativarBotoes()
 
-    const statusAtual = conferirResposta(botao, indiceAleatorio) //executa a função de correção de respostas e passa o status(de acerto ou erro) para a constante statusAtual
+    const statusAtual = conferirResposta(botao, indiceAleatorio[0]) //executa a função de correção de respostas e passa o status(de acerto ou erro) para a constante statusAtual
 
     atualizarBarraDeVida(jogadorAtuante, statusAtual)
     atualizarBarrasDeVidaVisual()
     
-    removerQuestao(indiceAleatorio)
+    //aplicação da função removerElemento na lista de questões
+    const removerQuestao = removerElemento(perguntas)
+
+    removerQuestao(indiceAleatorio[0])
     setTimeout(carregarPergunta, 400)
 }
 
 //função que desativa os botões na tela com base no jogador que lhe é passado como parâmetro
-const desativarBotoes = (jogador) => {
-    if(jogador === 1) {
-        opcao1.disabled = true
-        opcao2.disabled = true
-        opcao3.disabled = true
-        opcao4.disabled = true 
-    } else {
-        opcao1Quiz2.disabled = true
-        opcao2Quiz2.disabled = true
-        opcao3Quiz2.disabled = true
-        opcao4Quiz2.disabled = true
-    }
+const desativarBotoes = () => {
+    opcao1.disabled = true
+    opcao2.disabled = true
+    opcao3.disabled = true
+    opcao4.disabled = true 
+    
+    opcao1Quiz2.disabled = true
+    opcao2Quiz2.disabled = true
+    opcao3Quiz2.disabled = true
+    opcao4Quiz2.disabled = true
 
-    desativarBotoesVisual(jogador)
+    desativarBotoesVisual()
 }
 
 //função que realiza as mudanças visuais na tela quando os botões são desativados
-const desativarBotoesVisual = (jogador) => {
-    if(jogador === 1) {
-        opcao1.style.color = "black"
-        opcao2.style.color = "black"
-        opcao3.style.color = "black"
-        opcao4.style.color = "black"
+const desativarBotoesVisual = () => {
+    opcao1.style.color = "black"
+    opcao2.style.color = "black"
+    opcao3.style.color = "black"
+    opcao4.style.color = "black"
 
-        opcao1.style.backgroundColor = "#b6b4b4"
-        opcao2.style.backgroundColor = "#b6b4b4"
-        opcao3.style.backgroundColor = "#b6b4b4"
-        opcao4.style.backgroundColor = "#b6b4b4"
-    } else {
-        opcao1Quiz2.style.color = "black"
-        opcao2Quiz2.style.color = "black"
-        opcao3Quiz2.style.color = "black"
-        opcao4Quiz2.style.color = "black"
+    opcao1.style.backgroundColor = "#b6b4b4"
+    opcao2.style.backgroundColor = "#b6b4b4"
+    opcao3.style.backgroundColor = "#b6b4b4"
+    opcao4.style.backgroundColor = "#b6b4b4"
 
-        opcao1Quiz2.style.backgroundColor = "#b6b4b4"
-        opcao2Quiz2.style.backgroundColor = "#b6b4b4"
-        opcao3Quiz2.style.backgroundColor = "#b6b4b4"
-        opcao4Quiz2.style.backgroundColor = "#b6b4b4"
-    }
+    opcao1Quiz2.style.color = "black"
+    opcao2Quiz2.style.color = "black"
+    opcao3Quiz2.style.color = "black"
+    opcao4Quiz2.style.color = "black"
+
+    opcao1Quiz2.style.backgroundColor = "#b6b4b4"
+    opcao2Quiz2.style.backgroundColor = "#b6b4b4"
+    opcao3Quiz2.style.backgroundColor = "#b6b4b4"
+    opcao4Quiz2.style.backgroundColor = "#b6b4b4"
 }
 
-//funcao que marca na tela como certa ou errada a alternativa selecionada pelo usuário
+//função que marca na tela como certa ou errada a alternativa selecionada pelo usuário
 const conferirResposta = (bto, indice) => {
     const respCorreta = perguntas[indice].opcaocorreta
 
@@ -126,60 +123,44 @@ const atualizarBarrasDeVidaVisual = () => {
     adicionarElemento("", '<img class="coracao" src="imagens/coracao-verde.png" alt="Coração Verde">')(vidaJogador2, barraDeVida2)
 }
 
-//aplicação da função removerElemento na lista de questões
-const removerQuestao = removerElemento(perguntas)
-
 //função que, caso o jogo não tenha se encerrado, configura uma nova pergunta na tela e começa uma nova rodada. Caso o jogo tenha se encerrado, chama a função exibirTelaDeFimDeJogo
 const carregarPergunta = () => {
     if(verificarFimDeJogo() === false) {
 
-        indiceAleatorio = numeroAleatorio(perguntas.length)
+        indiceAleatorio[0] = numeroAleatorio(perguntas.length)
 
-        if(perguntas[indiceAleatorio] !== null) {
-            reverterMarcacaoBotao("both")
+        if(perguntas[indiceAleatorio[0]] !== null) {
+            reverterMarcacaoBotao()
 
-            definirPergunta(indiceAleatorio)
+            definirPergunta(indiceAleatorio[0])
 
-            ativarBotoes(1)
-            ativarBotoes(2)
+            ativarBotoes()
 
         } else carregarPergunta()
 
     } else exibirTelaDeFimDeJogo()
 }
 
-//função que verifica se o jogo acabou --> Atualmente o único modo do jogo acabar é se o banco de perguntas se esgotar mas em implementações futuras será adicionada uma nova condição
+//função que verifica se o jogo acabou
 const verificarFimDeJogo = () => {
-    if(verificarEmpate(perguntas)) return "EMPATE"
+    if(verificarEmpate(perguntas)) return "EMPATE!"
     else {
-        if(verificarVidaZerada(vidaJogador1)) return "JOGADOR 2 VENCEU!"
-        else if(verificarVidaZerada(vidaJogador2)) return "JOGADOR 1 VENCEU"
+        if(verificarVidaZerada(vidaJogador1)) return "JOGADOR 2 É O MAIS SÁBIO!"
+        else if(verificarVidaZerada(vidaJogador2)) return "JOGADOR 1 É O MAIS SÁBIO!"
     } return false
 }
 
 //função que remove a marcação de certo/errado adicionada quando o usuário seleciona uma alternativa
-const reverterMarcacaoBotao = (jogador) => {
-    if(jogador === 1) {
-        opcao1.style.backgroundColor = "white"
-        opcao2.style.backgroundColor = "white"
-        opcao3.style.backgroundColor = "white"
-        opcao4.style.backgroundColor = "white"
-    } else if(jogador === "both") {
-        opcao1.style.backgroundColor = "white"
-        opcao2.style.backgroundColor = "white"
-        opcao3.style.backgroundColor = "white"
-        opcao4.style.backgroundColor = "white"
+const reverterMarcacaoBotao = () => {
+    opcao1.style.backgroundColor = "white"
+    opcao2.style.backgroundColor = "white"
+    opcao3.style.backgroundColor = "white"
+    opcao4.style.backgroundColor = "white"
 
-        opcao1Quiz2.style.backgroundColor = "white"
-        opcao2Quiz2.style.backgroundColor = "white"
-        opcao3Quiz2.style.backgroundColor = "white"
-        opcao4Quiz2.style.backgroundColor = "white"
-    } else {
-        opcao1Quiz2.style.backgroundColor = "white"
-        opcao2Quiz2.style.backgroundColor = "white"
-        opcao3Quiz2.style.backgroundColor = "white"
-        opcao4Quiz2.style.backgroundColor = "white"
-    }
+    opcao1Quiz2.style.backgroundColor = "white"
+    opcao2Quiz2.style.backgroundColor = "white"
+    opcao3Quiz2.style.backgroundColor = "white"
+    opcao4Quiz2.style.backgroundColor = "white"
 }
 
 //função que recebe um indice e exibe na tela a pergunta correspondente
@@ -209,32 +190,39 @@ const definirPergunta = (indice) => {
 }
 
 //função que torna a ativar os botões com base no jogador que lhe é passado como parâmetro
-const ativarBotoes = (jogador) => {
-    if(jogador === 1) {
-        opcao1.disabled = false
-        opcao2.disabled = false
-        opcao3.disabled = false
-        opcao4.disabled = false
-    } else {
-        opcao1Quiz2.disabled = false
-        opcao2Quiz2.disabled = false
-        opcao3Quiz2.disabled = false
-        opcao4Quiz2.disabled = false
-    }
+const ativarBotoes = () => {
+    opcao1.disabled = false
+    opcao2.disabled = false
+    opcao3.disabled = false
+    opcao4.disabled = false
+
+    opcao1Quiz2.disabled = false
+    opcao2Quiz2.disabled = false
+    opcao3Quiz2.disabled = false
+    opcao4Quiz2.disabled = false
 }
 
 //exibe uma tela improvisada de fim de jogo
 const exibirTelaDeFimDeJogo = () => {
-    quizArea1.style.display = "none"
-    quizArea2.style.display = "none"
+    clearInterval(iniciar)  //encerra o setInterval do cronômetro
+
     principal.innerHTML = 
     `
-    <h1>FIM DE JOGO!</h1>
-    <h2>${verificarFimDeJogo()}</h2>
+    <main id="tela-fim-de-jogo">
+        <div class="fim">
+            <h1>Fim de Jogo!</h1>
+        </div>
+        <div class="resultado">
+            <h2>${verificarFimDeJogo()}</h2>
+        </div>
+        <div>
+            <a href="https://precious-moxie-ab8abe.netlify.app/jogo_marcacao.html" rel="prev" hreflang="pt-br"><button id="botao">Reiniciar</button></a>
+        </div>
+    </main>
     `
 }
 
-//função que vai atualizando o cronômetro na tela a cada 1s
+//função que vai atualizando o cronômetro na tela
 const configurarCronometro = () => {
     cronometro.innerHTML = `${tempo[0]}${tempo[1]}:${tempo[2]}${tempo[3]}`
     if(tempo[3]=== 9) {
@@ -252,7 +240,7 @@ const configurarCronometro = () => {
 //função que inicia o mini jogo, chamando as funções necessárias para tal
 const comecarMiniJogo = () => {
     if(verificarFimDeJogo() === false) {
-        alterarParaValoresBinarios(codigoBase)
+        codigoBase[0] = numeroAleatorio(2)
         anularLista(codigoInserido)
     
         adicionarElemento(`<div class="botao-minijogo-azul"></div>`, `<div class="botao-minijogo-verde"></div>`)(codigoBase, caixa)
@@ -261,7 +249,7 @@ const comecarMiniJogo = () => {
     }
 }
 
-//função que será chamada quando os jogadores interagem no mini jogo. Ela adiciona um caractere na lista que representa a resposta do usuário e em seguida chama a função que confere se a entrada foi correta
+//função que é chamada quando os jogadores interagem no mini jogo. Ela adiciona um caractere na lista que representa a resposta do usuário e em seguida chama a função que confere se a entrada foi correta
 const inserirCodigoResposta = (caractere, codigo, base, indice = 0) => {
     if(indice === 5) return
     else if(codigo[indice] === null) {
@@ -272,7 +260,7 @@ const inserirCodigoResposta = (caractere, codigo, base, indice = 0) => {
     else inserirCodigoResposta(caractere, codigo, base, indice + 1)
 }
 
-//função que apaaga o botão na tela caso a entrada tenha sido a correta para dar um feedback para o jogador
+//função que apaga o botão na tela caso a entrada tenha sido a correta para dar um feedback para o jogador
 const marcarBotao = (caractere, indice) => {
     if(caractere === 0) caixa.children[indice].style.backgroundColor = "black"
     else caixa.children[indice].style.backgroundColor = "black"
@@ -355,13 +343,13 @@ document.addEventListener("keydown", (event) => event.preventDefault())
 //adição do "listener" para ouvir o pressionar do teclado
 document.addEventListener("keydown", configurarTeclas)
 
-//exibir as regras do jogo com a API SweetAlert
+//exibe as regras do jogo com a API SweetAlert
 await Swal.fire({
     title: 'REGRAS DE JOGO',
-    html: '<p style="text-align: justify">Acerto de pergunta >> Causa dano <br> Erro de pergunta >> perde vida <br> Se não apertar o botão na sua vez, recuperará dois pontos de vida do seu adversário!!</p>',
+    html: '<p style="text-align: justify">Acerto de pergunta >> Causa dano <br> Erro de pergunta >> Perde vida <br><br> Se não apertar o botão do mini jogo na sua vez, recuperará dois pontos de vida do adversário!!</p>',
     icon: 'warning',
     confirmButtonText: 'OK'
 })
 
 //execução da função que começa o jogo
-comecarJogo()
+const iniciar = comecarJogo()

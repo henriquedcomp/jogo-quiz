@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
 
+@media (max-width: 1087px) {
+    * {
+        visibility: hidden;
+        background: var(--corDeDestaque);
+    }
+
+    #tela-pequena-aviso {
+        visibility: visible;
+        display: block;
+    }
+}
+
 @media (min-width: 1088px) and (max-width: 1300px) {
     #opcao1, #opcao2, #opcao3, #opcao4, #opcao1-quiz2, #opcao2-quiz2, #opcao3-quiz2, #opcao4-quiz2 {
         font-size: 14px;
@@ -40,8 +52,8 @@ body, #quiz-area1, .respostas, .botao, #conteudo-meio, #quiz-area2, #barras-de-v
 }
 
 #quiz-area1, #quiz-area2 {
-    height: 97.795vh;
-    max-height: 97.795vh;
+    min-height: max-content;
+    max-height: 100vh;
     width: 350px;
     flex-direction: column;
     position: relative;
@@ -52,7 +64,7 @@ body, #quiz-area1, .respostas, .botao, #conteudo-meio, #quiz-area2, #barras-de-v
 }
 
 body {
-    max-height: 100vh;
+    height: 100vh;
     justify-content: space-between;
     background-color: var(--corDeFundo);
     background-image: linear-gradient(90deg, var(--corMediaJogador1) 44%, var(--corMediaJogador2) 55%)
@@ -83,7 +95,7 @@ body {
     flex-direction: column;
     position: absolute;
     left: -.1%;
-    top: 59%;
+    top: 57%;
     font-size: 18px;
     cursor: none;
 }
@@ -175,6 +187,16 @@ body {
     font-family: 'Caveat Brush', cursive;
 }
 
+.invisivel {
+    display: none;
+}
+
+#tela-pequena-aviso {
+    font-size: 18px;
+    font-family: monospace;
+    text-transform: uppercase;
+}
+
 #conteudo-meio-inferior {
     justify-content: space-between;
     width: 100%;
@@ -187,7 +209,7 @@ body {
     clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
     font-family: monospace;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 13px;
     width: 9vw;
     height: 3vw;
     text-align: left;
@@ -206,7 +228,7 @@ body {
     font-family: monospace;
     width: 9vw;
     height: 3vw;
-    font-size: 15px;
+    font-size: 13px;
     text-align: right;
 }
 
@@ -264,6 +286,61 @@ body {
 #quiz-area2 {
     margin-right: 3%;
     background: linear-gradient(180deg, var(--corEscuraJogador2), var(--corClaraJogador2))
+}
+
+#tela-fim-de-jogo {
+    width: 100%;
+    height: 100vh;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #D3D3D4;
+}
+
+#botao {
+    position: absolute;
+    top: 80%;
+    left: 85%;
+    width: 150px;
+    height: 70px;
+    color: #ffffff;
+    font-size:xx-large;
+    background-color: #3D3C3C;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#botao:hover {
+    filter: brightness(1.5);
+    transform: scale(1.05);
+}
+
+.fim {
+    width: 450px;
+    height: 165px;
+    font-size:xx-large;
+    border-radius: 20% 15%;
+    margin: 0 auto;
+    margin-top: 5%;
+    border: 1px solid;
+    border-color: #000000;
+    text-align: center;
+    padding-top: 5%;
+}
+
+.resultado {
+    width: 300px;
+    height: 150px;
+    max-height: 150px;
+    font-size:larger;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 7%;
+    border: 3px solid;
+    border-color: #000000;
+    text-align: center;
+}
+
+.resultado > h2 {
+    padding-top: 12%;
 }
 
 @keyframes carregamento {
