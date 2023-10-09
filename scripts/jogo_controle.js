@@ -211,6 +211,7 @@ const exibirTelaDeFimDeJogo = () => {
     <main id="tela-fim-de-jogo">
         <div class="fim">
             <h1>Fim de Jogo!</h1>
+            <h2>${tempo[0]}${tempo[1]}:${tempo[2]}${tempo[3]}</h2>
         </div>
         <div class="resultado">
             <h2>${verificarFimDeJogo()}</h2>
