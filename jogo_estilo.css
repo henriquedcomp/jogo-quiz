@@ -79,7 +79,7 @@ body {
     width: 93%;
     border: 2px solid var(--corDeFundo);
     border-radius: 10px;
-    padding: 10px;
+    padding: 2.5%;
     cursor: none;
 }
 
@@ -200,6 +200,7 @@ body {
 #conteudo-meio-inferior {
     justify-content: space-between;
     width: 100%;
+    max-width: 500px;
     padding-bottom: 20%;
 }
 
@@ -210,8 +211,8 @@ body {
     font-family: monospace;
     font-weight: bold;
     font-size: 13px;
-    width: 9vw;
-    height: 3vw;
+    width: 120px;
+    height: 37px;
     text-align: left;
 }
 
@@ -226,8 +227,8 @@ body {
     clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
     font-weight: bold;
     font-family: monospace;
-    width: 9vw;
-    height: 3vw;
+    width: 120px;
+    height: 37px;
     font-size: 13px;
     text-align: right;
 }
@@ -247,6 +248,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     cursor: none;
+    margin: 0 .5vw;
 }
 
 #caixa-minijogo {
@@ -280,7 +282,7 @@ body {
 }
 
 .carregamento {
-    animation: carregamento 4s linear;
+    animation: carregamento 4.5s linear;
 }
 
 #quiz-area2 {

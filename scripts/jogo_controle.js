@@ -28,12 +28,10 @@ let variavelDeControle
 
 //função que inicia o jogo, chamando as funções necessárias para tal
 const comecarJogo = () => {
-    carregarPergunta()
+    iniciarNovaRodadaQuiz()
     atualizarBarrasDeVidaVisual()
-    configurarCronometro()
     comecarMiniJogo()
-    
-    return setInterval(configurarCronometro, 1000)
+    configurarCronometro()
 }
 
 //função que é acionada quando um dos botões de resposta do HTML é acionado. Ela chama todas as funções necessárias para prosseguir com o jogo. Desativar os botões, verificar se o jogador acertou ou não...
@@ -51,7 +49,7 @@ window.verificarResposta = (botao) => {
     const removerQuestao = removerElemento(perguntas)
 
     removerQuestao(indiceAleatorio[0])
-    setTimeout(carregarPergunta, 400)
+    setTimeout(iniciarNovaRodadaQuiz, 400)
 }
 
 //função que desativa os botões na tela com base no jogador que lhe é passado como parâmetro
@@ -124,7 +122,7 @@ const atualizarBarrasDeVidaVisual = () => {
 }
 
 //função que, caso o jogo não tenha se encerrado, configura uma nova pergunta na tela e começa uma nova rodada. Caso o jogo tenha se encerrado, chama a função exibirTelaDeFimDeJogo
-const carregarPergunta = () => {
+const iniciarNovaRodadaQuiz = () => {
     if(verificarFimDeJogo() === false) {
 
         indiceAleatorio[0] = numeroAleatorio(perguntas.length)
@@ -136,7 +134,7 @@ const carregarPergunta = () => {
 
             ativarBotoes()
 
-        } else carregarPergunta()
+        } else iniciarNovaRodadaQuiz()
 
     } else exibirTelaDeFimDeJogo()
 }
@@ -204,8 +202,6 @@ const ativarBotoes = () => {
 
 //exibe uma tela improvisada de fim de jogo
 const exibirTelaDeFimDeJogo = () => {
-    clearInterval(iniciar)  //encerra o setInterval do cronômetro
-
     principal.innerHTML = 
     `
     <main id="tela-fim-de-jogo">
@@ -226,6 +222,7 @@ const exibirTelaDeFimDeJogo = () => {
 //função que vai atualizando o cronômetro na tela
 const configurarCronometro = () => {
     cronometro.innerHTML = `${tempo[0]}${tempo[1]}:${tempo[2]}${tempo[3]}`
+
     if(tempo[3]=== 9) {
         if(tempo[2]=== 5) {
             if(tempo[1]=== 9) {
@@ -236,6 +233,8 @@ const configurarCronometro = () => {
         } else tempo[2] += 1
         tempo[3] = 0
     } else tempo[3] += 1
+
+    if(verificarFimDeJogo() === false) setTimeout(configurarCronometro, 1000)
 }
 
 //função que inicia o mini jogo, chamando as funções necessárias para tal
@@ -303,7 +302,7 @@ const verificarAusencia = (codigo, base, indice = 0) => {
                 atualizarBarrasDeVidaVisual()
             }
             comecarMiniJogo()
-        }, 4000)
+        }, 4500)
     }
 }
 
@@ -353,4 +352,4 @@ await Swal.fire({
 })
 
 //execução da função que começa o jogo
-const iniciar = comecarJogo()
+comecarJogo()
