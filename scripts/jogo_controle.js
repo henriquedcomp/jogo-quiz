@@ -346,7 +346,7 @@ document.addEventListener("keydown", configurarTeclas)
 //exibe as regras do jogo com a API SweetAlert
 await Swal.fire({
     title: 'REGRAS DE JOGO',
-    html: '<p style="text-align: justify">Acerto de pergunta >> Causa dano <br> Erro de pergunta >> Perde vida <br><br> Se não apertar o botão do mini jogo na sua vez, recuperará dois pontos de vida do adversário!!</p>',
+    html: '<p style="text-align: justify">Acerto de pergunta → Causa dano <br> Erro de pergunta → Perde vida <br><br> Se não apertar o botão do mini jogo na sua vez, recuperará dois pontos de vida do adversário!!</p>',
     icon: 'warning',
     confirmButtonText: 'OK'
 })
