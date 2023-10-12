@@ -58,6 +58,15 @@ const perguntas = [
     adicionarQuestao("Quantos átomos de Oxigênio há numa molécula de água?",  "2", "0", "3", "1", "1" ),
     adicionarQuestao("Qual dos seguintes materiais possui maior dureza?",  "Diamante", "Chumbo", "Granito", "Ouro", "Diamante" ),
     adicionarQuestao("Quantos pinos há num jogo de boliche?",  "12", "6", "8", "10", "10" ),
+    adicionarQuestao("Qual o formato do salgadinho Doritos?",  "Redondo", "Quadrado", "Triangular", "Oval", "Triangular" ),
+    adicionarQuestao("Qual animal representa o símbolo da paz?",  "Gato", "Pombo", "Cobra", "Leão", "Pombo" ),
+    adicionarQuestao("Qual animal que aparece no logotipo da Ferrari?",  "Leão", "Leopardo", "Cavalo", "Tigra", "Cavalo" ),
+    adicionarQuestao("Qual é o sobrenome mais comum no Brasil?",  "Silva", "Souza", "Jesus", "Santos", "Silva" ),
+    adicionarQuestao("Segundo a lenda, quantas vidas um gato teria?",  "7", "5", "8", "3", "7" ),
+    adicionarQuestao("Quantos dias tem um ano bissexto?",  "365", "366", "367", "368", "366" ),
+    adicionarQuestao("Qual animal represneta o signo de câncer?",  "Leão", "Cobra", "Caranguejo", "Águia", "Caranguejo" ),
+    adicionarQuestao("Quem liderou a revolta conhecida como Inconfidência Mineira?",  "Dom Pedro II", "Dom João VI", "Tiradentes", "Dom Pedro I", "Tiradentes" ),
+    adicionarQuestao("Qual país europeu a Rússia declarou guerra em 2022?",  "França", "Itália", "Ucrânia", "Alemanha", "Ucrânia" ),
 ]
 
 //listas representativas das barras de vida dos jogadores
