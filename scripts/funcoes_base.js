@@ -4,8 +4,13 @@ const numeroAleatorio = (alcance, minimo = 0) => Math.floor((Math.random() * alc
 //função que recebe um índice como parâmetro e define o valor do array na posição indice como null. Será usada para eliminar da lista de perguntas as que já apareceram na partida
 const removerElemento = (lista) => (indice) => lista[indice] = null
 
-//função que verifica se todos os elementos de uma lista são nulos. Será usada para verificar empate, o que ocorre quando a lista de perguntas é composta somente por null
-const verificarEmpate = (lista) => lista.filter((x) => x !== null).length === 0? true : false
+//função que verifica se todos os elementos de uma lista são nulos. Será usada para verificar se a lista de perguntas é composta somente por null
+const verificarListaNula = (lista) => lista.filter((x) => x !== null).length === 0? true : false
+
+//função que verifica se o primeiro e o segundo elemento de uma lista são iguais a valores passados como parâmetros, será usada para verificar o caso em que um jogo termina por alcançar um tempo limite
+const verificarPrimeirosElementos = (lista, primeiro, segundo) => {
+    if(lista.length >= 2) return (lista[0] === primeiro && lista[1] === segundo)
+}
 
 //função que utiliza do conceito de currying para modificar a barra de vida dos jogadores. O parâmetro indice diz respeito ao valor que será usado para iterar nas casas da lista que representa a barra de vida dos jogadores. Modificador indica como o indice vai alterar seu valor a cada chamada recursiva (+1 ou -1 a depender se for usada para causar dano ou regenerar vida). val1 e val 2 são parâmetros auxiliares para tomar uma decisão(na função de causar dano por exemplo, se a lista na posição indice for igual a 1(val1) esse valor será trocado por 0(val 2) o que indica que o player perdeu 1 de vida. Na função de regenerar vida ocorre o contrário). O parâmetro lista indica a lista que será analisada na função(vidaPlayer1 ou vidaPlayer2)
 const modificarBarraDeVida = (modificador, indice) => (val1, val2) => (lista) => {

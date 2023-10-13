@@ -141,12 +141,15 @@ const iniciarNovaRodadaQuiz = () => {
 
 //função que verifica se o jogo acabou
 const verificarFimDeJogo = () => {
-    if(verificarEmpate(perguntas)) return "EMPATE!"
+    if(verificarEmpate()) return "EMPATE!"
     else {
         if(verificarVidaZerada(vidaJogador1)) return "JOGADOR 2 É O MAIS SÁBIO!"
         else if(verificarVidaZerada(vidaJogador2)) return "JOGADOR 1 É O MAIS SÁBIO!"
     } return false
 }
+
+//função que verifica se o jogo empatou, o que acontece quando todas as perguntas já foram exibidas ou quando o tempo chega em 15min
+const verificarEmpate = () => verificarListaNula(perguntas) || verificarPrimeirosElementos(tempo, 1, 5)
 
 //função que remove a marcação de certo/errado adicionada quando o usuário seleciona uma alternativa
 const reverterMarcacaoBotao = () => {
@@ -235,6 +238,7 @@ const configurarCronometro = () => {
     } else tempo[3] += 1
 
     if(verificarFimDeJogo() === false) setTimeout(configurarCronometro, 1000)
+    else exibirTelaDeFimDeJogo()
 }
 
 //função que inicia o mini jogo, chamando as funções necessárias para tal
