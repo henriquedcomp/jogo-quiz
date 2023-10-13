@@ -112,7 +112,12 @@ const perguntas = [
     adicionarQuestao("Em que região se localiza o estado de Minas Gerais?",  "Norte", "Centro-Oeste", "Sul", "Sudeste", "Sudeste" ),
     adicionarQuestao("Quem escreveu Os Lusíadas?",  "Luís Vaz de Camões", "Fernando Pessoa", "Jorge Amado", "Carlos Drummond de Andrade", "Luís Vaz de Camões" ),
     adicionarQuestao("O que é um tsunami?",  "Um ciclone", "Um maremoto", "Um tornado", "Um terremoto", "Um maremoto" ),
-    adicionarQuestao("Qual destas substâncias faz parte da composição do vidro?",  "Petróleo", "Celulose", "Areia", "Fibra", "Areia" ),
+    adicionarQuestao("Qual destas substâncias faz parte da composição do vidro?",  "Petróleo", "Celulose", "Areia", "Fibra", "Areia"),
+    adicionarQuestao("Em que se baseiam a maioria dos nomes de versões do Android?",  "Doces", "Carros", "Bebidas", "Cidades", "Doces"),
+    adicionarQuestao("Em Minecraft, qual minério é utilizado para realizar trocas com aldeões?",  "Diamante", "Ferro", "Ouro", "Esmeralda", "Esmeralda"),
+    adicionarQuestao("Qual animal é o mascote do sistema operacional Linux?",  "Gato", "Polvo", "Foca", "Pinguim", "Pinguim"),
+    adicionarQuestao("Qual animal é o mascote da linguagem de programação PHP?",  "Cachorro", "Camelo", "Dinossauro", "Elefante", "Elefante"),
+    adicionarQuestao("Em Harry Potter, qual feitiço é usado para levitar objetos?",  "Bombarda", "Alohomora", "Accio", "Wingardium Leviosa", "Wingardium Leviosa")
 ]
 
 //listas representativas das barras de vida dos jogadores
