@@ -4,7 +4,7 @@ Projeto de criação do jogo "Quem é mais sábio?", um jogo de QUIZ competitivo
 
 # Como jogar?
 
-https://github.com/henriquedcomp/jogo-quiz/assets/145950329/d1b05517-0e50-4861-9ebc-7c2084ada011
+https://youtu.be/iwApnoqW-uo
 
 # Tecnologias utilizadas
 
